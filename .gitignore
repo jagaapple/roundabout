@@ -1,0 +1,48 @@
+# ==============================================================================================================================
+# GIT IGNORE
+# ==============================================================================================================================
+# ------------------------------------------------------------------------------------------------------------------------------
+# Temp Files
+# ------------------------------------------------------------------------------------------------------------------------------
+# Generated temporary files by OS or editors.
+*~
+*#
+*.bak
+*.tmproj
+.buildpath
+.project
+.settings
+.idea
+.tmp
+.netbeans
+nbproject
+
+
+# ------------------------------------------------------------------------------------------------------------------------------
+# Dynamicaly Generated Files
+# ------------------------------------------------------------------------------------------------------------------------------
+# Hidden files created by OS.
+Thumbs.db
+desktop.ini
+.DS_Store
+.DS_STORE
+
+# Generated files created by Xcode.
+build/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+# Generated files created by package managers.
+Carthage/Checkouts
+Carthage/Build
