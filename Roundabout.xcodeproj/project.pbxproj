@@ -10,6 +10,10 @@
 		902DDE8520D6624D00C8CE87 /* Roundabout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902DDE7B20D6624D00C8CE87 /* Roundabout.framework */; };
 		902DDE8A20D6624D00C8CE87 /* RoundaboutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE8920D6624D00C8CE87 /* RoundaboutTests.swift */; };
 		902DDE8C20D6624D00C8CE87 /* Roundabout.h in Headers */ = {isa = PBXBuildFile; fileRef = 902DDE7E20D6624D00C8CE87 /* Roundabout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		902DDE9720D6667500C8CE87 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9620D6667500C8CE87 /* Action.swift */; };
+		902DDE9920D666AE00C8CE87 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9820D666AE00C8CE87 /* State.swift */; };
+		902DDE9B20D666C800C8CE87 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9A20D666C800C8CE87 /* Store.swift */; };
+		902DDEBE20D6698700C8CE87 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDEBD20D6698700C8CE87 /* Demo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,10 @@
 		902DDE8420D6624D00C8CE87 /* RoundaboutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoundaboutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		902DDE8920D6624D00C8CE87 /* RoundaboutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundaboutTests.swift; sourceTree = "<group>"; };
 		902DDE8B20D6624D00C8CE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		902DDE9620D6667500C8CE87 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		902DDE9820D666AE00C8CE87 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		902DDE9A20D666C800C8CE87 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		902DDEBD20D6698700C8CE87 /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,9 +61,9 @@
 		902DDE7120D6624D00C8CE87 = {
 			isa = PBXGroup;
 			children = (
+				902DDEBC20D6697D00C8CE87 /* Demo */,
 				902DDE7D20D6624D00C8CE87 /* Roundabout */,
 				902DDE8820D6624D00C8CE87 /* RoundaboutTests */,
-				902DDE7C20D6624D00C8CE87 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +74,7 @@
 				902DDE8420D6624D00C8CE87 /* RoundaboutTests.xctest */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		902DDE7D20D6624D00C8CE87 /* Roundabout */ = {
@@ -73,6 +82,9 @@
 			children = (
 				902DDE7E20D6624D00C8CE87 /* Roundabout.h */,
 				902DDE7F20D6624D00C8CE87 /* Info.plist */,
+				902DDE9620D6667500C8CE87 /* Action.swift */,
+				902DDE9820D666AE00C8CE87 /* State.swift */,
+				902DDE9A20D666C800C8CE87 /* Store.swift */,
 			);
 			path = Roundabout;
 			sourceTree = "<group>";
@@ -80,10 +92,19 @@
 		902DDE8820D6624D00C8CE87 /* RoundaboutTests */ = {
 			isa = PBXGroup;
 			children = (
+				902DDE7C20D6624D00C8CE87 /* Products */,
 				902DDE8920D6624D00C8CE87 /* RoundaboutTests.swift */,
 				902DDE8B20D6624D00C8CE87 /* Info.plist */,
 			);
 			path = RoundaboutTests;
+			sourceTree = "<group>";
+		};
+		902DDEBC20D6697D00C8CE87 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				902DDEBD20D6698700C8CE87 /* Demo.swift */,
+			);
+			path = Demo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +169,7 @@
 				TargetAttributes = {
 					902DDE7A20D6624D00C8CE87 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 					902DDE8320D6624D00C8CE87 = {
 						CreatedOnToolsVersion = 9.3;
@@ -158,8 +180,6 @@
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
-			knownRegions = (
-			);
 			mainGroup = 902DDE7120D6624D00C8CE87;
 			productRefGroup = 902DDE7C20D6624D00C8CE87 /* Products */;
 			projectDirPath = "";
@@ -193,6 +213,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				902DDE9B20D666C800C8CE87 /* Store.swift in Sources */,
+				902DDE9720D6667500C8CE87 /* Action.swift in Sources */,
+				902DDEBE20D6698700C8CE87 /* Demo.swift in Sources */,
+				902DDE9920D666AE00C8CE87 /* State.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +362,7 @@
 		902DDE9020D6624D00C8CE87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -356,6 +381,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +390,7 @@
 		902DDE9120D6624D00C8CE87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -390,6 +417,7 @@
 		902DDE9320D6624D00C8CE87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = RoundaboutTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -407,6 +435,7 @@
 		902DDE9420D6624D00C8CE87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = RoundaboutTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
