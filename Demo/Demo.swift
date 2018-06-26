@@ -51,7 +51,9 @@ let store: Store<ApplicationState> = Store<ApplicationState>()
 
 class Demo {
   func viewWillAppear() {
-    store.subscribe(self)
+    store.subscribe(self, didChange: { (state: ApplicationState) in
+      print(state)
+    })
   }
 
   func viewWillDisAppear() {
