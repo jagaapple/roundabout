@@ -9,13 +9,14 @@ public class Store<ApplicationStateType: State> {
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // Define types.
-  public typealias MiddlewareType = (Action, ApplicationStateType)
+  typealias SubscriberId = String
+  typealias MiddlewareType = (Action, ApplicationStateType) -> Void
 
   // Define public variables.
-  public let applicationState: ApplicationStateType = ApplicationStateType.defaultState
+  public var applicationState: ApplicationStateType = ApplicationStateType.defaultState
 
   // Define private variables.
-  private var observers: [AnyObject] = []
+  private var subscribers: [SubscriberId: AnyObject] = [:]
   private var middleware: [MiddlewareType] = []
 
 
@@ -31,16 +32,31 @@ public class Store<ApplicationStateType: State> {
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   public func subscribe(_ observer: AnyObject) {
-    self.observers.append(observer)
+    let newSubscriberId: SubscriberId = self.getNewSubscriberId()
+    self.subscribers[newSubscriberId] = observer
   }
 
-  public func unsubscribe(_ targetObserver: AnyObject) {
-    let filteredObservers: [AnyObject] = self.observers.filter({ (observer: AnyObject) -> Bool in
-      return (observer !== targetObserver)
-    })
-    self.observers = filteredObservers
+  public func unsubscribe(_ targetSubscriber: AnyObject) {
+    let targetSubscriberId: SubscriberId? = self.subscribers.first(where: { (_, subscriber: AnyObject) -> Bool in
+      return (targetSubscriber === subscriber)
+    })?.key
+
+    guard let subscriberId: SubscriberId = targetSubscriberId else { return }
+    self.subscribers.removeValue(forKey: subscriberId)
   }
 
-  public func dispatch(action: Action) {}
+  public func dispatch(action: Action) {
+    // Call middleware.
+    self.middleware.forEach({ (ware: MiddlewareType) in ware(action, self.applicationState) })
+
+    // Dispatch.
+    self.applicationState = ApplicationStateType.handleAction(state: self.applicationState, action: action)
+  }
+
+  // Private Functions
+  // ---------------------------------------------------------------------------------------------------------------------------
+  private func getNewSubscriberId() -> SubscriberId {
+    return UUID().uuidString
+  }
 
 }

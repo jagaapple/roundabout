@@ -38,14 +38,16 @@ struct UpdateUserNameAction: Action {
 }
 
 struct ApplicationState: State {
-  static var defaultState: ApplicationState { return ApplicationState() }
+  static var defaultState: ApplicationState { return self.init(user: UserState()) }
 
   static func handleAction(state: ApplicationState, action: Action) -> ApplicationState {
-    return ApplicationState()
+    return self.init(user: state.user)
   }
+
+  let user: UserState
 }
 
-let store = Store<ApplicationState>()
+let store: Store<ApplicationState> = Store<ApplicationState>()
 
 class Demo {
   func viewWillAppear() {
