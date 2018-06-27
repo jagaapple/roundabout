@@ -14,9 +14,7 @@ public class Store<ApplicationStateType: State> {
   private typealias SubscriberId = String
 
   // Define public variables.
-  public var applicationState: ApplicationStateType = ApplicationStateType.defaultState
-
-  // Define private variables.
+  private var applicationState: ApplicationStateType = ApplicationStateType.defaultState
   private var subscribers: [SubscriberId: AnyObject] = [:]
   private var didChangeHandlers: [SubscriberId: StateDidChangeHandler] = [:]
   private var middleware: [Middleware] = []
@@ -27,7 +25,7 @@ public class Store<ApplicationStateType: State> {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
-  init(middleware: [Middleware] = []) {
+  public init(middleware: [Middleware] = []) {
     self.middleware = middleware
   }
 
