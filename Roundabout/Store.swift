@@ -32,10 +32,12 @@ public class Store<ApplicationStateType: State> {
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   public func subscribe(_ observer: AnyObject, didChange didChangeHandler: @escaping StateDidChangeHandler) {
-    let newSubscriberId: SubscriberId = self.getNewSubscriberId()
+    let newSubscriberId: SubscriberId = self.generateNewSubscriberId()
 
     self.subscribers[newSubscriberId] = observer
     self.didChangeHandlers[newSubscriberId] = didChangeHandler
+    
+    didChangeHandler(self.applicationState)
   }
 
   public func unsubscribe(_ targetSubscriber: AnyObject) {
@@ -59,7 +61,7 @@ public class Store<ApplicationStateType: State> {
 
   // Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  private func getNewSubscriberId() -> SubscriberId {
+  private func generateNewSubscriberId() -> SubscriberId {
     return UUID().uuidString
   }
 
