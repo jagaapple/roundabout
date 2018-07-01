@@ -74,7 +74,7 @@ final class BooksDetailTableViewController: UITableViewController {
     let row: Rows = Rows(rawValue: indexPath.row) ?? Rows.summary
 
     switch row {
-    case .summary: return 486.0
+    case .summary: return 416.0
     case .score: return 136.0
     }
   }
