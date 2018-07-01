@@ -27,34 +27,47 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCT-P9-LHX">
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9Vi-4c-FGJ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55.666666666666664"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Title Title Title Title Title Title Title Title Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4q-pL-KIh" userLabel="Title Label">
-                                                    <rect key="frame" x="16" y="3.9999999999999982" width="343" height="28.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description Description Description Description Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6RC-PC-jSC" userLabel="Description Label">
-                                                    <rect key="frame" x="16" y="23" width="343" height="28.666666666666671"/>
+                                                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCT-P9-LHX">
+                                                    <rect key="frame" x="16" y="0.0" width="300.66666666666669" height="55.666666666666664"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Title Title Title Title Title Title Title Title Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4q-pL-KIh" userLabel="Title Label">
+                                                            <rect key="frame" x="0.0" y="4.0000000000000018" width="300.66666666666669" height="28.666666666666671"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description Description Description Description Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6RC-PC-jSC" userLabel="Description Label">
+                                                            <rect key="frame" x="0.0" y="23.333333333333336" width="300.66666666666669" height="28.333333333333336"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <edgeInsets key="layoutMargins" top="4" left="0.0" bottom="4" right="0.0"/>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4W-iU-G3h" userLabel="Score Label">
+                                                    <rect key="frame" x="332.66666666666669" y="0.0" width="26.333333333333314" height="55.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <edgeInsets key="layoutMargins" top="4" left="16" bottom="4" right="16"/>
+                                            <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="16"/>
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="lCT-P9-LHX" firstAttribute="top" secondItem="kaQ-Tl-EF7" secondAttribute="top" id="62T-oP-AFW"/>
-                                        <constraint firstAttribute="bottom" secondItem="lCT-P9-LHX" secondAttribute="bottom" id="YMg-UI-YmE"/>
-                                        <constraint firstItem="lCT-P9-LHX" firstAttribute="leading" secondItem="kaQ-Tl-EF7" secondAttribute="leading" id="ZVz-v1-xIi"/>
-                                        <constraint firstAttribute="trailing" secondItem="lCT-P9-LHX" secondAttribute="trailing" id="yl4-ZR-ULU"/>
+                                        <constraint firstItem="9Vi-4c-FGJ" firstAttribute="top" secondItem="kaQ-Tl-EF7" secondAttribute="top" id="PY6-lc-Sk6"/>
+                                        <constraint firstAttribute="bottom" secondItem="9Vi-4c-FGJ" secondAttribute="bottom" id="Voh-75-cfn"/>
+                                        <constraint firstAttribute="trailing" secondItem="9Vi-4c-FGJ" secondAttribute="trailing" id="wOe-3k-hHt"/>
+                                        <constraint firstItem="9Vi-4c-FGJ" firstAttribute="leading" secondItem="kaQ-Tl-EF7" secondAttribute="leading" id="yE5-sk-5hp"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="6RC-PC-jSC" id="Ckz-RX-OBH"/>
+                                    <outlet property="scoreLabel" destination="B4W-iU-G3h" id="3aI-jC-YYW"/>
                                     <outlet property="titleLabel" destination="H4q-pL-KIh" id="26d-y1-QId"/>
                                 </connections>
                             </tableViewCell>

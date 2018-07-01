@@ -14,6 +14,7 @@ final class BooksIndexDefaultTableViewCell: UITableViewCell {
   // Define private variables.
   @IBOutlet weak private var titleLabel: UILabel!
   @IBOutlet weak private var descriptionLabel: UILabel!
+  @IBOutlet weak private var scoreLabel: UILabel!
   private var book: BookModel!
 
 
@@ -33,6 +34,7 @@ final class BooksIndexDefaultTableViewCell: UITableViewCell {
   private func bindToAppearance() {
     self.titleLabel.text = self.book.title
     self.descriptionLabel.text = self.book.description
+    self.scoreLabel.text = String(self.book.score)
 
     if (self.book.description == nil) || self.book.description!.isEmpty {
       self.descriptionLabel.text = "No Description."
