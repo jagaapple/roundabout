@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		900D355520E96C4000DB0DE3 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900D355420E96C4000DB0DE3 /* UIView.swift */; };
 		902DDED020E3F54F00C8CE87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDECF20E3F54F00C8CE87 /* AppDelegate.swift */; };
 		902DDED220E3F54F00C8CE87 /* BooksIndexTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDED120E3F54F00C8CE87 /* BooksIndexTableViewController.swift */; };
 		902DDED520E3F54F00C8CE87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 902DDED320E3F54F00C8CE87 /* LaunchScreen.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		900D355420E96C4000DB0DE3 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		902DDECC20E3F54F00C8CE87 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		902DDECF20E3F54F00C8CE87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		902DDED120E3F54F00C8CE87 /* BooksIndexTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksIndexTableViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		900D355320E96C3600DB0DE3 /* IBInspectables */ = {
+			isa = PBXGroup;
+			children = (
+				900D355420E96C4000DB0DE3 /* UIView.swift */,
+			);
+			path = IBInspectables;
+			sourceTree = "<group>";
+		};
 		902DDEC320E3F54F00C8CE87 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +90,7 @@
 		902DDECE20E3F54F00C8CE87 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				900D355320E96C3600DB0DE3 /* IBInspectables */,
 				90C8C70020E7DE82003DE394 /* Models */,
 				902DDF5120E3FE5400C8CE87 /* Redux */,
 				90C8C6FD20E56066003DE394 /* Views */,
@@ -240,6 +251,7 @@
 				902DDF5720E3FE5400C8CE87 /* BookState.swift in Sources */,
 				90C8C6FF20E560AF003DE394 /* BooksIndexDefaultTableViewCell.swift in Sources */,
 				90C8C70220E7DE9B003DE394 /* BookModel.swift in Sources */,
+				900D355520E96C4000DB0DE3 /* UIView.swift in Sources */,
 				90C8C70B20E830B4003DE394 /* BooksEditDefaultTableViewCell.swift in Sources */,
 				902DDF6D20E3FF6400C8CE87 /* BookActions.swift in Sources */,
 			);

@@ -239,6 +239,11 @@
                                                 <constraint firstAttribute="trailing" secondItem="u2C-23-Qfz" secondAttribute="trailing" constant="16" id="m4Z-9v-5RB"/>
                                                 <constraint firstItem="u2C-23-Qfz" firstAttribute="leading" secondItem="f7x-b6-59W" secondAttribute="leading" constant="16" id="pa5-53-w5e"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Title Book Title Book Title Book Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kba-eI-aLR" userLabel="Title Label">
                                             <rect key="frame" x="16" y="288" width="343" height="57.333333333333314"/>
@@ -303,6 +308,11 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKp-X2-U1A" userLabel="Score Buttons Background View">
                                             <rect key="frame" x="32" y="72" width="311" height="40"/>
                                             <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="8"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xsJ-cY-1Xl" userLabel="Score Buttons Stack View">
                                             <rect key="frame" x="32" y="72" width="311" height="40"/>
