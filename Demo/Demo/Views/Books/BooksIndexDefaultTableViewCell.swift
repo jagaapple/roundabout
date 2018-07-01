@@ -1,9 +1,9 @@
 // =============================================================================================================================
-// DEMO - VIEWS - MAIN - MAIN DEFAULT TABLE VIEW CELL
+// DEMO - VIEWS - BOOKS - BOOKS INDEX DEFAULT TABLE VIEW CELL
 // =============================================================================================================================
 import UIKit
 
-final class MainDefaultTableViewCell: UITableViewCell {
+final class BooksIndexDefaultTableViewCell: UITableViewCell {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables

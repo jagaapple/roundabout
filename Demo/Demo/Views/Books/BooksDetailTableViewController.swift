@@ -23,15 +23,15 @@ final class BooksDetailTableViewController: UITableViewController {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Overrides
   // ---------------------------------------------------------------------------------------------------------------------------
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
 
     // Subscribe Store.
     ApplicationStore.shared.subscribe(self, didChange: self.bindToAppearance)
   }
 
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
 
     // Unsubscribe Store to avoid memory leaks.
     ApplicationStore.shared.unsubscribe(self)

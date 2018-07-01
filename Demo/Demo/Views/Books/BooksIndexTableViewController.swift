@@ -1,9 +1,9 @@
 // =============================================================================================================================
-// DEMO - VIEWS - MAIN - MAIN TABLE VIEW CONTROLLER
+// DEMO - VIEWS - BOOKS - BOOKS INDEX TABLE VIEW CONTROLLER
 // =============================================================================================================================
 import UIKit
 
-final class MainTableViewController: UITableViewController {
+final class BooksIndexTableViewController: UITableViewController {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
@@ -18,15 +18,15 @@ final class MainTableViewController: UITableViewController {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Overrides
   // ---------------------------------------------------------------------------------------------------------------------------
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
 
     // Subscribe Store.
     ApplicationStore.shared.subscribe(self, didChange: self.bindToAppearance)
   }
 
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
 
     // Unsubscribe Store to avoid memory leaks.
     ApplicationStore.shared.unsubscribe(self)
@@ -54,10 +54,10 @@ final class MainTableViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell: MainDefaultTableViewCell = tableView.dequeueReusableCell(
-      withIdentifier: MainDefaultTableViewCell.identifier,
+    guard let cell: BooksIndexDefaultTableViewCell = tableView.dequeueReusableCell(
+      withIdentifier: BooksIndexDefaultTableViewCell.identifier,
       for: indexPath
-    ) as? MainDefaultTableViewCell else { return UITableViewCell() }
+    ) as? BooksIndexDefaultTableViewCell else { return UITableViewCell() }
 
     let book: BookModel = self.books[indexPath.row]
     cell.prepare(book: book)
