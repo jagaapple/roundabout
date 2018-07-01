@@ -1,36 +1,35 @@
 // =============================================================================================================================
-// DEMO - VIEWS - BOOKS - BOOKS DETAIL VIEW CONTROLLER
+// DEMO - VIEWS - BOOKS - BOOKS DETAIL SUMMARY TABLE VIEW CELL
 // =============================================================================================================================
 import UIKit
 
-final class BooksDetailViewController: UIViewController {
+final class BooksDetailSummaryTableViewCell: UITableViewCell {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define private variables.
-  private var book: BookModel!
+  // Define internal variables.
+  static var identifier: String { return "summary" }
+
+  // Define IBOutlet variables.
+  @IBOutlet weak private var titleLabel: UILabel!
+  @IBOutlet weak private var descriptionLabel: UILabel!
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-
-    self.bindToAppearance()
-  }
-
   // Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   func prepare(book: BookModel) {
-    self.book = book
+    self.bindToAppearance(book: book)
   }
 
   // Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  private func bindToAppearance() {
-    self.title = self.book.title
+  func bindToAppearance(book: BookModel) {
+    self.titleLabel.text = book.title
+    self.descriptionLabel.text = book.description
   }
 
 }

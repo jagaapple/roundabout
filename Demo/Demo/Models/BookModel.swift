@@ -9,7 +9,7 @@ struct BookModel {
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // Define internal variables.
-  var id: UUID?
+  var id: UUID
   var title: String
   var description: String?
   var score: Int

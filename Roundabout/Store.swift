@@ -9,8 +9,8 @@ public class Store<ApplicationStateType: State> {
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // Define types.
-  public typealias Middleware = (Action, ApplicationStateType) -> Void
-  public typealias StateDidChangeHandler = (ApplicationStateType) -> Void
+  public typealias Middleware = ((Action, ApplicationStateType) -> Void)
+  public typealias StateDidChangeHandler = ((ApplicationStateType) -> Void)
   private typealias SubscriberId = String
 
   // Define public variables.
@@ -36,7 +36,7 @@ public class Store<ApplicationStateType: State> {
 
     self.subscribers[newSubscriberId] = observer
     self.didChangeHandlers[newSubscriberId] = didChangeHandler
-    
+
     didChangeHandler(self.applicationState)
   }
 

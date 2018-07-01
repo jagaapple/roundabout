@@ -1,29 +1,21 @@
 // =============================================================================================================================
-// DEMO - VIEWS - BOOKS - BOOKS EDIT DEFAULT TABLE VIEW CELL
+// DEMO - VIEWS - BOOKS - BOOKS DETAIL SCORE TABLE VIEW CELL
 // =============================================================================================================================
 import UIKit
 
-final class BooksEditDefaultTableViewCell: UITableViewCell {
+final class BooksDetailScoreTableViewCell: UITableViewCell {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define structs.
-  struct BooksEditItem {
-    let name: String
-    let initialValue: String?
-    let didInputTextFieldHandler: ((String?) -> Void)
-  }
-
   // Define internal variables.
-  static var identifier: String { return "default" }
+  static var identifier: String { return "score" }
 
   // Define private variables.
-  private(set) var didInputTextFieldHandler: ((String?) -> Void)!
+  private var book: BookModel!
 
   // Define IBOutlet variables.
-  @IBOutlet weak private var nameLabel: UILabel!
-  @IBOutlet weak private var textField: UITextField!
+  @IBOutlet weak private var scoreLabel: UILabel!
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -31,22 +23,26 @@ final class BooksEditDefaultTableViewCell: UITableViewCell {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  func prepare(item: BooksEditItem) {
-    self.didInputTextFieldHandler = item.didInputTextFieldHandler
-    self.textField.addTarget(self, action: #selector(self.didInputText), for: .editingChanged)
+  func prepare(book: BookModel) {
+    self.book = book
 
-    self.bindToAppearance(item: item)
+    self.bindToAppearance(book: book)
   }
 
   // Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  private func bindToAppearance(item: BooksEditItem) {
-    self.nameLabel.text = item.name
-    self.textField.text = item.initialValue
+  func bindToAppearance(book: BookModel) {
+    self.scoreLabel.text = String(book.score)
   }
 
-  @objc private func didInputText(_ sender: UITextField) {
-    self.didInputTextFieldHandler(sender.text)
+  // IBActions
+  // ---------------------------------------------------------------------------------------------------------------------------
+  @IBAction private func didTapIncrementScoreButton(_ sender: UIButton) {
+    ApplicationStore.shared.dispatch(action: IncrementBookScoreAction(id: self.book.id))
   }
-  
+
+  @IBAction private func didTapDecrementScoreButton(_ sender: UIButton) {
+    ApplicationStore.shared.dispatch(action: DecrementBookScoreAction(id: self.book.id))
+  }
+
 }
