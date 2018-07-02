@@ -12,6 +12,7 @@ final class BooksDetailTableViewController: UITableViewController {
   private enum Rows: Int {
     case summary
     case score
+    case edit
   }
 
   // Define private variables.
@@ -23,6 +24,14 @@ final class BooksDetailTableViewController: UITableViewController {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Overrides
   // ---------------------------------------------------------------------------------------------------------------------------
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.destination {
+    case let viewController as BooksEditViewController:
+      viewController.prepare(book: self.book)
+    default: return
+    }
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
@@ -42,7 +51,7 @@ final class BooksDetailTableViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 2
+    return 3
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,9 +71,16 @@ final class BooksDetailTableViewController: UITableViewController {
       guard let cell: BooksDetailScoreTableViewCell = tableView.dequeueReusableCell(
         withIdentifier: BooksDetailScoreTableViewCell.identifier,
         for: indexPath
-        ) as? BooksDetailScoreTableViewCell else { return UITableViewCell() }
+      ) as? BooksDetailScoreTableViewCell else { return UITableViewCell() }
 
       cell.prepare(book: self.book)
+
+      return cell
+    case .edit:
+      guard let cell: BooksDetailEditTableViewCell = tableView.dequeueReusableCell(
+        withIdentifier: BooksDetailEditTableViewCell.identifier,
+        for: indexPath
+      ) as? BooksDetailEditTableViewCell else { return UITableViewCell() }
 
       return cell
     }
@@ -76,6 +92,7 @@ final class BooksDetailTableViewController: UITableViewController {
     switch row {
     case .summary: return 416.0
     case .score: return 136.0
+    case .edit: return 89.0
     }
   }
 

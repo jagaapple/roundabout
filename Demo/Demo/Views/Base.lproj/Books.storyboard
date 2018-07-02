@@ -214,7 +214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vnx-WO-RBe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-175" y="1056"/>
+            <point key="canvasLocation" x="321" y="1119"/>
         </scene>
         <!--Book Detail-->
         <scene sceneID="Liy-r4-Cyo">
@@ -329,7 +329,7 @@
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="8"/>
+                                                            <real key="value" value="12"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                             <real key="value" value="2"/>
@@ -350,7 +350,7 @@
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="8"/>
+                                                            <real key="value" value="12"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                             <real key="value" value="2"/>
@@ -397,6 +397,44 @@
                                     <outlet property="scoreLabel" destination="K71-ep-QTR" id="xub-DF-Dp6"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="edit" rowHeight="89" id="Qb8-da-PRG" userLabel="Edit Table View Cell" customClass="BooksDetailEditTableViewCell" customModule="Demo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="580" width="375" height="89"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qb8-da-PRG" id="P5I-GJ-XAP">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfS-si-0Lb" userLabel="Edit Button">
+                                            <rect key="frame" x="16" y="24" width="343" height="49"/>
+                                            <color key="backgroundColor" red="0.0" green="0.52292513847351074" blue="0.99978786706924438" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="49" id="cOt-yZ-ThQ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <state key="normal" title="Edit">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="backgroundDisabledColor">
+                                                    <color key="value" red="0.0" green="0.52292513847351074" blue="0.99978786706924438" alpha="0.65264634683098588" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="12"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <segue destination="z3C-wL-iHm" kind="presentation" id="1pS-Xh-tBs"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xfS-si-0Lb" secondAttribute="bottom" constant="16" id="Qf8-IR-qYA"/>
+                                        <constraint firstItem="xfS-si-0Lb" firstAttribute="leading" secondItem="P5I-GJ-XAP" secondAttribute="leading" constant="16" id="bZx-4v-sT2"/>
+                                        <constraint firstItem="xfS-si-0Lb" firstAttribute="top" secondItem="P5I-GJ-XAP" secondAttribute="top" constant="24" id="dOZ-WH-9uA"/>
+                                        <constraint firstAttribute="trailing" secondItem="xfS-si-0Lb" secondAttribute="trailing" constant="16" id="dbL-qc-jj3"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Sau-vb-15h" id="7Oy-ym-FIl"/>
@@ -425,4 +463,7 @@
             <point key="canvasLocation" x="-1127" y="336"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="1pS-Xh-tBs"/>
+    </inferredMetricsTieBreakers>
 </document>

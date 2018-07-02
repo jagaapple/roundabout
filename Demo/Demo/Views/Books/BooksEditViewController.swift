@@ -31,7 +31,7 @@ final class BooksEditViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.bindToAppearance(isAddingMode: isAddingMode)
+    self.bindToAppearance()
   }
 
   // Internal Functions
@@ -46,8 +46,9 @@ final class BooksEditViewController: UIViewController {
 
   // Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  private func bindToAppearance(isAddingMode: Bool) {
-    let title: String = (isAddingMode) ? "Add Book" : "Edit Book"
+  private func bindToAppearance() {
+    let title: String = (self.isAddingMode) ? "Add Book" : "Edit Book"
+    self.navigationBarSaveButton.isEnabled = !self.bookTitle.isEmpty
     self.navigationBarTitleLabel.text = title
   }
 
