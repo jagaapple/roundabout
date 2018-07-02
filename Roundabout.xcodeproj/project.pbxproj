@@ -64,6 +64,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		900D355B20EA896500DB0DE3 /* CoreTypes */ = {
+			isa = PBXGroup;
+			children = (
+				902DDE9620D6667500C8CE87 /* Action.swift */,
+				902DDE9820D666AE00C8CE87 /* State.swift */,
+				902DDE9A20D666C800C8CE87 /* Store.swift */,
+			);
+			path = CoreTypes;
+			sourceTree = "<group>";
+		};
 		902DDE7120D6624D00C8CE87 = {
 			isa = PBXGroup;
 			children = (
@@ -86,11 +96,9 @@
 		902DDE7D20D6624D00C8CE87 /* Roundabout */ = {
 			isa = PBXGroup;
 			children = (
+				900D355B20EA896500DB0DE3 /* CoreTypes */,
 				902DDE7E20D6624D00C8CE87 /* Roundabout.h */,
 				902DDE7F20D6624D00C8CE87 /* Info.plist */,
-				902DDE9620D6667500C8CE87 /* Action.swift */,
-				902DDE9820D666AE00C8CE87 /* State.swift */,
-				902DDE9A20D666C800C8CE87 /* Store.swift */,
 			);
 			path = Roundabout;
 			sourceTree = "<group>";
