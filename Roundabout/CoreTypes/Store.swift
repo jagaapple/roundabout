@@ -3,7 +3,7 @@
 // =============================================================================================================================
 import Foundation
 
-public class Store<ApplicationStateType: State> {
+final public class Store<ApplicationStateType: State> {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
@@ -13,11 +13,11 @@ public class Store<ApplicationStateType: State> {
   public typealias StateDidChangeHandler = ((ApplicationStateType) -> Void)
   private typealias SubscriberId = String
 
-  // Define public variables.
+  // Define private variables.
+  private let middleware: [Middleware]
   private var applicationState: ApplicationStateType = ApplicationStateType.defaultState
   private var subscribers: [SubscriberId: AnyObject] = [:]
   private var didChangeHandlers: [SubscriberId: StateDidChangeHandler] = [:]
-  private var middleware: [Middleware] = []
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
