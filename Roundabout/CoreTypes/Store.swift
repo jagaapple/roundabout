@@ -11,7 +11,7 @@ final public class Store<ApplicationStateType: State> {
   // Define types.
   public typealias Middleware = ((Action, ApplicationStateType) -> Void)
   public typealias StateDidChangeHandler = ((ApplicationStateType) -> Void)
-  private typealias SubscriberId = String
+  private typealias SubscriberId = ObjectIdentifier
 
   // Define private variables.
   private let middleware: [Middleware]
@@ -31,21 +31,17 @@ final public class Store<ApplicationStateType: State> {
 
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  public func subscribe(_ observer: AnyObject, didChange didChangeHandler: @escaping StateDidChangeHandler) {
-    let newSubscriberId: SubscriberId = self.generateNewSubscriberId()
+  public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping StateDidChangeHandler) {
+    let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
 
-    self.subscribers[newSubscriberId] = observer
+    self.subscribers[newSubscriberId] = subscriber
     self.didChangeHandlers[newSubscriberId] = didChangeHandler
 
     didChangeHandler(self.applicationState)
   }
 
   public func unsubscribe(_ targetSubscriber: AnyObject) {
-    let targetSubscriberId: SubscriberId? = self.subscribers.first(where: { (_, subscriber: AnyObject) -> Bool in
-      return (targetSubscriber === subscriber)
-    })?.key
-
-    guard let subscriberId: SubscriberId = targetSubscriberId else { return }
+    let subscriberId: SubscriberId = self.getSubscriberId(of: targetSubscriber)
     self.subscribers.removeValue(forKey: subscriberId)
     self.didChangeHandlers.removeValue(forKey: subscriberId)
   }
@@ -61,8 +57,8 @@ final public class Store<ApplicationStateType: State> {
 
   // Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  private func generateNewSubscriberId() -> SubscriberId {
-    return UUID().uuidString
+  private func getSubscriberId(of object: AnyObject) -> SubscriberId {
+    return ObjectIdentifier(object)
   }
 
 }
