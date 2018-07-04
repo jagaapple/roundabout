@@ -1,21 +1,26 @@
 // =============================================================================================================================
-// ROUNDABOUT - CORE TYPES - STORE
+// ROUNDABOUT - SIGNALS - SIGNAL
 // =============================================================================================================================
 import Foundation
 
-final public class Store<ApplicationStateType: State> {
+final public class Signal<T: Equatable> {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // Define types.
-  public typealias Middleware = ((Action, ApplicationStateType) -> Void)
-  public typealias DidChangeHandler = ((ApplicationStateType) -> Void)
+  public typealias DidChangeHandler = ((T?) -> Void)
   private typealias SubscriberId = ObjectIdentifier
 
+  // Define public variables.
+  public var rawValue: T? {
+    didSet {
+      if self.rawValue == oldValue { return }
+      self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.rawValue) })
+    }
+  }
+
   // Define private variables.
-  private let middleware: [Middleware]
-  private var applicationState: ApplicationStateType = ApplicationStateType.defaultState
   private var subscribers: [SubscriberId: AnyObject] = [:]
   private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
 
@@ -25,8 +30,8 @@ final public class Store<ApplicationStateType: State> {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
-  public init(middleware: [Middleware] = []) {
-    self.middleware = middleware
+  public init(_ rawValue: T?) {
+    self.rawValue = rawValue
   }
 
   // Public Functions
@@ -36,22 +41,13 @@ final public class Store<ApplicationStateType: State> {
     self.subscribers[newSubscriberId] = subscriber
     self.didChangeHandlers[newSubscriberId] = didChangeHandler
 
-    didChangeHandler(self.applicationState)
+    didChangeHandler(self.rawValue)
   }
 
   public func unsubscribe(_ subscriber: AnyObject) {
     let subscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers.removeValue(forKey: subscriberId)
     self.didChangeHandlers.removeValue(forKey: subscriberId)
-  }
-
-  public func dispatch(action: Action) {
-    // Call middleware.
-    self.middleware.forEach({ (ware: Middleware) in ware(action, self.applicationState) })
-
-    // Dispatch.
-    self.applicationState = ApplicationStateType.handleAction(state: self.applicationState, action: action)
-    self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.applicationState) })
   }
 
   // Private Functions
