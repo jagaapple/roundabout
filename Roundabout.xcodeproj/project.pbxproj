@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		900D355F20EA89E100DB0DE3 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900D355E20EA89E100DB0DE3 /* Signal.swift */; };
 		902DDE8520D6624D00C8CE87 /* Roundabout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902DDE7B20D6624D00C8CE87 /* Roundabout.framework */; };
 		902DDE8A20D6624D00C8CE87 /* RoundaboutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE8920D6624D00C8CE87 /* RoundaboutTests.swift */; };
 		902DDE8C20D6624D00C8CE87 /* Roundabout.h in Headers */ = {isa = PBXBuildFile; fileRef = 902DDE7E20D6624D00C8CE87 /* Roundabout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		902DDE9720D6667500C8CE87 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9620D6667500C8CE87 /* Action.swift */; };
 		902DDE9920D666AE00C8CE87 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9820D666AE00C8CE87 /* State.swift */; };
 		902DDE9B20D666C800C8CE87 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9A20D666C800C8CE87 /* Store.swift */; };
+		90C2A86820F4BF3C00545298 /* StateSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2A86720F4BF3C00545298 /* StateSignal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		900D355E20EA89E100DB0DE3 /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		902DDE7B20D6624D00C8CE87 /* Roundabout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Roundabout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902DDE7E20D6624D00C8CE87 /* Roundabout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Roundabout.h; sourceTree = "<group>"; };
 		902DDE7F20D6624D00C8CE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,6 +46,7 @@
 		902DDE9820D666AE00C8CE87 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		902DDE9A20D666C800C8CE87 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		902DDF6620E3FECE00C8CE87 /* Demo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Demo.xcodeproj; path = Demo/Demo.xcodeproj; sourceTree = "<group>"; };
+		90C2A86720F4BF3C00545298 /* StateSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateSignal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		900D355B20EA896500DB0DE3 /* CoreTypes */ = {
+			isa = PBXGroup;
+			children = (
+				902DDE9620D6667500C8CE87 /* Action.swift */,
+				902DDE9820D666AE00C8CE87 /* State.swift */,
+				902DDE9A20D666C800C8CE87 /* Store.swift */,
+			);
+			path = CoreTypes;
+			sourceTree = "<group>";
+		};
+		900D355D20EA89C300DB0DE3 /* Signals */ = {
+			isa = PBXGroup;
+			children = (
+				900D355E20EA89E100DB0DE3 /* Signal.swift */,
+				90C2A86720F4BF3C00545298 /* StateSignal.swift */,
+			);
+			path = Signals;
+			sourceTree = "<group>";
+		};
 		902DDE7120D6624D00C8CE87 = {
 			isa = PBXGroup;
 			children = (
@@ -86,11 +109,10 @@
 		902DDE7D20D6624D00C8CE87 /* Roundabout */ = {
 			isa = PBXGroup;
 			children = (
+				900D355B20EA896500DB0DE3 /* CoreTypes */,
+				900D355D20EA89C300DB0DE3 /* Signals */,
 				902DDE7E20D6624D00C8CE87 /* Roundabout.h */,
 				902DDE7F20D6624D00C8CE87 /* Info.plist */,
-				902DDE9620D6667500C8CE87 /* Action.swift */,
-				902DDE9820D666AE00C8CE87 /* State.swift */,
-				902DDE9A20D666C800C8CE87 /* Store.swift */,
 			);
 			path = Roundabout;
 			sourceTree = "<group>";
@@ -240,8 +262,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				902DDE9B20D666C800C8CE87 /* Store.swift in Sources */,
+				90C2A86820F4BF3C00545298 /* StateSignal.swift in Sources */,
 				902DDE9720D6667500C8CE87 /* Action.swift in Sources */,
 				902DDE9920D666AE00C8CE87 /* State.swift in Sources */,
+				900D355F20EA89E100DB0DE3 /* Signal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

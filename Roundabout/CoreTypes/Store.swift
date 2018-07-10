@@ -1,23 +1,24 @@
 // =============================================================================================================================
-// ROUNDABOUT - STORE
+// ROUNDABOUT - CORE TYPES - STORE
 // =============================================================================================================================
 import Foundation
 
-public class Store<ApplicationStateType: State> {
+final public class Store<ApplicationStateType: State> {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // Define types.
   public typealias Middleware = ((Action, ApplicationStateType) -> Void)
-  public typealias StateDidChangeHandler = ((ApplicationStateType) -> Void)
-  private typealias SubscriberId = String
+  public typealias DidChangeHandler = ((ApplicationStateType) -> Void)
+  private typealias SubscriberId = ObjectIdentifier
 
-  // Define public variables.
+  // Define private variables.
+  private let middleware: [Middleware]
   private var applicationState: ApplicationStateType = ApplicationStateType.defaultState
   private var subscribers: [SubscriberId: AnyObject] = [:]
-  private var didChangeHandlers: [SubscriberId: StateDidChangeHandler] = [:]
-  private var middleware: [Middleware] = []
+  private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
+  private var signals: [StateSignalType] = []
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -31,23 +32,32 @@ public class Store<ApplicationStateType: State> {
 
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  public func subscribe(_ observer: AnyObject, didChange didChangeHandler: @escaping StateDidChangeHandler) {
-    let newSubscriberId: SubscriberId = self.generateNewSubscriberId()
+  public func subscribe(_ subscriber: AnyObject, connectTo signals: [StateSignalType]) {
+    let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
+    self.subscribers[newSubscriberId] = subscriber
 
-    self.subscribers[newSubscriberId] = observer
+    self.signals = signals
+  }
+
+  public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping DidChangeHandler) {
+    let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
+    self.subscribers[newSubscriberId] = subscriber
     self.didChangeHandlers[newSubscriberId] = didChangeHandler
 
     didChangeHandler(self.applicationState)
   }
 
-  public func unsubscribe(_ targetSubscriber: AnyObject) {
-    let targetSubscriberId: SubscriberId? = self.subscribers.first(where: { (_, subscriber: AnyObject) -> Bool in
-      return (targetSubscriber === subscriber)
-    })?.key
-
-    guard let subscriberId: SubscriberId = targetSubscriberId else { return }
+  public func unsubscribe(_ subscriber: AnyObject) {
+    let subscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers.removeValue(forKey: subscriberId)
     self.didChangeHandlers.removeValue(forKey: subscriberId)
+  }
+
+  public func createSignal<T: Equatable>(
+    _ source: @escaping ((ApplicationStateType) -> T)
+    ) -> StateSignal<T, ApplicationStateType> {
+    let defaultValue: T = source(self.applicationState)
+    return StateSignal(defaultValue, source: source)
   }
 
   public func dispatch(action: Action) {
@@ -56,13 +66,16 @@ public class Store<ApplicationStateType: State> {
 
     // Dispatch.
     self.applicationState = ApplicationStateType.handleAction(state: self.applicationState, action: action)
-    self.didChangeHandlers.forEach({ (_, didChangeHandler: StateDidChangeHandler) in didChangeHandler(self.applicationState) })
+    self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.applicationState) })
+
+    // Input new states into signals.
+    self.signals.forEach({ (signal: StateSignalType) in signal.input(self.applicationState) })
   }
 
   // Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  private func generateNewSubscriberId() -> SubscriberId {
-    return UUID().uuidString
+  private func getSubscriberId(of object: AnyObject) -> SubscriberId {
+    return ObjectIdentifier(object)
   }
 
 }
