@@ -9,11 +9,11 @@ final public class Signal<T: Equatable> {
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // Define types.
-  public typealias DidChangeHandler = ((T?) -> Void)
+  public typealias DidChangeHandler = ((T) -> Void)
   private typealias SubscriberId = ObjectIdentifier
 
   // Define public variables.
-  public var rawValue: T? {
+  public var rawValue: T {
     didSet {
       if self.rawValue == oldValue { return }
       self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.rawValue) })
@@ -30,7 +30,7 @@ final public class Signal<T: Equatable> {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
-  public init(_ rawValue: T?) {
+  public init(_ rawValue: T) {
     self.rawValue = rawValue
   }
 
