@@ -1,24 +1,33 @@
 // =============================================================================================================================
-// ROUNDABOUT - CORE TYPES - STORE
+// ROUNDABOUT - SIGNALS - STATE SIGNAL
 // =============================================================================================================================
 import Foundation
 
-final public class Store<ApplicationStateType: State> {
+public protocol StateSignalType {
+  func input(_ state: Any)
+}
+
+final public class StateSignal<T: Equatable, ApplicationStateType: State>: StateSignalType {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // Define types.
-  public typealias Middleware = ((Action, ApplicationStateType) -> Void)
-  public typealias DidChangeHandler = ((ApplicationStateType) -> Void)
+  public typealias DidChangeHandler = ((T) -> Void)
   private typealias SubscriberId = ObjectIdentifier
 
+  // Define public variables.
+  public var rawValue: T {
+    didSet {
+      if self.rawValue == oldValue { return }
+      self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.rawValue) })
+    }
+  }
+
   // Define private variables.
-  private let middleware: [Middleware]
-  private var applicationState: ApplicationStateType = ApplicationStateType.defaultState
+  private(set) var inputSource: ((ApplicationStateType) -> T)?
   private var subscribers: [SubscriberId: AnyObject] = [:]
   private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
-  private var signals: [StateSignalType] = []
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -26,25 +35,19 @@ final public class Store<ApplicationStateType: State> {
   // ---------------------------------------------------------------------------------------------------------------------------
   // Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
-  public init(middleware: [Middleware] = []) {
-    self.middleware = middleware
+  public init(_ rawValue: T, source: @escaping ((ApplicationStateType) -> T)) {
+    self.rawValue = rawValue
+    self.inputSource = source
   }
 
   // Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  public func subscribe(_ subscriber: AnyObject, connectTo signals: [StateSignalType]) {
-    let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
-    self.subscribers[newSubscriberId] = subscriber
-
-    self.signals = signals
-  }
-
   public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping DidChangeHandler) {
     let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers[newSubscriberId] = subscriber
     self.didChangeHandlers[newSubscriberId] = didChangeHandler
 
-    didChangeHandler(self.applicationState)
+    didChangeHandler(self.rawValue)
   }
 
   public func unsubscribe(_ subscriber: AnyObject) {
@@ -53,23 +56,10 @@ final public class Store<ApplicationStateType: State> {
     self.didChangeHandlers.removeValue(forKey: subscriberId)
   }
 
-  public func createSignal<T: Equatable>(
-    _ source: @escaping ((ApplicationStateType) -> T)
-    ) -> StateSignal<T, ApplicationStateType> {
-    let defaultValue: T = source(self.applicationState)
-    return StateSignal(defaultValue, source: source)
-  }
-
-  public func dispatch(action: Action) {
-    // Call middleware.
-    self.middleware.forEach({ (ware: Middleware) in ware(action, self.applicationState) })
-
-    // Dispatch.
-    self.applicationState = ApplicationStateType.handleAction(state: self.applicationState, action: action)
-    self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.applicationState) })
-
-    // Input new states into signals.
-    self.signals.forEach({ (signal: StateSignalType) in signal.input(self.applicationState) })
+  public func input(_ state: Any) {
+    guard let applicationState: ApplicationStateType = state as? ApplicationStateType else { return }
+    guard let inputSource: ((ApplicationStateType) -> T) = self.inputSource else { return }
+    self.rawValue = inputSource(applicationState)
   }
 
   // Private Functions

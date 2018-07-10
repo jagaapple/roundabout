@@ -15,6 +15,7 @@
 		902DDE9720D6667500C8CE87 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9620D6667500C8CE87 /* Action.swift */; };
 		902DDE9920D666AE00C8CE87 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9820D666AE00C8CE87 /* State.swift */; };
 		902DDE9B20D666C800C8CE87 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9A20D666C800C8CE87 /* Store.swift */; };
+		90C2A86820F4BF3C00545298 /* StateSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2A86720F4BF3C00545298 /* StateSignal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		902DDE9820D666AE00C8CE87 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		902DDE9A20D666C800C8CE87 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		902DDF6620E3FECE00C8CE87 /* Demo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Demo.xcodeproj; path = Demo/Demo.xcodeproj; sourceTree = "<group>"; };
+		90C2A86720F4BF3C00545298 /* StateSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateSignal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				900D356220F3478900DB0DE3 /* AnyEquatable.swift */,
 				900D355E20EA89E100DB0DE3 /* Signal.swift */,
+				90C2A86720F4BF3C00545298 /* StateSignal.swift */,
 			);
 			path = Signals;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			files = (
 				902DDE9B20D666C800C8CE87 /* Store.swift in Sources */,
 				900D356320F3478900DB0DE3 /* AnyEquatable.swift in Sources */,
+				90C2A86820F4BF3C00545298 /* StateSignal.swift in Sources */,
 				902DDE9720D6667500C8CE87 /* Action.swift in Sources */,
 				902DDE9920D666AE00C8CE87 /* State.swift in Sources */,
 				900D355F20EA89E100DB0DE3 /* Signal.swift in Sources */,
