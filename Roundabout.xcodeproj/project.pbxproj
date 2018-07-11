@@ -13,6 +13,11 @@
 		902DDE9720D6667500C8CE87 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9620D6667500C8CE87 /* Action.swift */; };
 		902DDE9920D666AE00C8CE87 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9820D666AE00C8CE87 /* State.swift */; };
 		902DDE9B20D666C800C8CE87 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDE9A20D666C800C8CE87 /* Store.swift */; };
+		90636FD720F6452D00D9A010 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90636FD520F6452D00D9A010 /* Quick.framework */; };
+		90636FD820F6452D00D9A010 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90636FD620F6452D00D9A010 /* Nimble.framework */; };
+		90636FDA20F6455400D9A010 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 90636FD620F6452D00D9A010 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		90636FDB20F6455400D9A010 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 90636FD520F6452D00D9A010 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		90636FDE20F6458B00D9A010 /* StoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FDD20F6458B00D9A010 /* StoreSpec.swift */; };
 		90C2A86820F4BF3C00545298 /* StateSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2A86720F4BF3C00545298 /* StateSignal.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,17 +38,34 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		90636FD920F6453600D9A010 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				90636FDA20F6455400D9A010 /* Nimble.framework in CopyFiles */,
+				90636FDB20F6455400D9A010 /* Quick.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		900D355E20EA89E100DB0DE3 /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		902DDE7B20D6624D00C8CE87 /* Roundabout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Roundabout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902DDE7E20D6624D00C8CE87 /* Roundabout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Roundabout.h; sourceTree = "<group>"; };
 		902DDE7F20D6624D00C8CE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		902DDE8420D6624D00C8CE87 /* RoundaboutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoundaboutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		902DDE8420D6624D00C8CE87 /* RoundaboutSpec.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoundaboutSpec.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		902DDE8B20D6624D00C8CE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		902DDE9620D6667500C8CE87 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		902DDE9820D666AE00C8CE87 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		902DDE9A20D666C800C8CE87 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		902DDF6620E3FECE00C8CE87 /* Demo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Demo.xcodeproj; path = Demo/Demo.xcodeproj; sourceTree = "<group>"; };
+		90636FD520F6452D00D9A010 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		90636FD620F6452D00D9A010 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		90636FDD20F6458B00D9A010 /* StoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSpec.swift; sourceTree = "<group>"; };
 		90C2A86720F4BF3C00545298 /* StateSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateSignal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,6 +82,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				902DDE8520D6624D00C8CE87 /* Roundabout.framework in Frameworks */,
+				90636FD720F6452D00D9A010 /* Quick.framework in Frameworks */,
+				90636FD820F6452D00D9A010 /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +114,8 @@
 			children = (
 				902DDF6620E3FECE00C8CE87 /* Demo.xcodeproj */,
 				902DDE7D20D6624D00C8CE87 /* Roundabout */,
-				902DDE8820D6624D00C8CE87 /* RoundaboutTests */,
+				902DDE8820D6624D00C8CE87 /* RoundaboutSpec */,
+				90636FD420F6452D00D9A010 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,7 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				902DDE7B20D6624D00C8CE87 /* Roundabout.framework */,
-				902DDE8420D6624D00C8CE87 /* RoundaboutTests.xctest */,
+				902DDE8420D6624D00C8CE87 /* RoundaboutSpec.xctest */,
 			);
 			name = Products;
 			path = ..;
@@ -115,13 +140,14 @@
 			path = Roundabout;
 			sourceTree = "<group>";
 		};
-		902DDE8820D6624D00C8CE87 /* RoundaboutTests */ = {
+		902DDE8820D6624D00C8CE87 /* RoundaboutSpec */ = {
 			isa = PBXGroup;
 			children = (
 				902DDE7C20D6624D00C8CE87 /* Products */,
+				90636FDC20F6455F00D9A010 /* CoreTypes */,
 				902DDE8B20D6624D00C8CE87 /* Info.plist */,
 			);
-			path = RoundaboutTests;
+			path = RoundaboutSpec;
 			sourceTree = "<group>";
 		};
 		902DDF6720E3FECE00C8CE87 /* Products */ = {
@@ -130,6 +156,23 @@
 				902DDF6B20E3FECE00C8CE87 /* Demo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		90636FD420F6452D00D9A010 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				90636FD620F6452D00D9A010 /* Nimble.framework */,
+				90636FD520F6452D00D9A010 /* Quick.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		90636FDC20F6455F00D9A010 /* CoreTypes */ = {
+			isa = PBXGroup;
+			children = (
+				90636FDD20F6458B00D9A010 /* StoreSpec.swift */,
+			);
+			path = CoreTypes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,22 +207,23 @@
 			productReference = 902DDE7B20D6624D00C8CE87 /* Roundabout.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		902DDE8320D6624D00C8CE87 /* RoundaboutTests */ = {
+		902DDE8320D6624D00C8CE87 /* RoundaboutSpec */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 902DDE9220D6624D00C8CE87 /* Build configuration list for PBXNativeTarget "RoundaboutTests" */;
+			buildConfigurationList = 902DDE9220D6624D00C8CE87 /* Build configuration list for PBXNativeTarget "RoundaboutSpec" */;
 			buildPhases = (
 				902DDE8020D6624D00C8CE87 /* Sources */,
 				902DDE8120D6624D00C8CE87 /* Frameworks */,
 				902DDE8220D6624D00C8CE87 /* Resources */,
+				90636FD920F6453600D9A010 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				902DDE8720D6624D00C8CE87 /* PBXTargetDependency */,
 			);
-			name = RoundaboutTests;
+			name = RoundaboutSpec;
 			productName = RoundaboutTests;
-			productReference = 902DDE8420D6624D00C8CE87 /* RoundaboutTests.xctest */;
+			productReference = 902DDE8420D6624D00C8CE87 /* RoundaboutSpec.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -198,6 +242,7 @@
 					};
 					902DDE8320D6624D00C8CE87 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 				};
 			};
@@ -221,7 +266,7 @@
 			projectRoot = "";
 			targets = (
 				902DDE7A20D6624D00C8CE87 /* Roundabout */,
-				902DDE8320D6624D00C8CE87 /* RoundaboutTests */,
+				902DDE8320D6624D00C8CE87 /* RoundaboutSpec */,
 			);
 		};
 /* End PBXProject section */
@@ -270,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90636FDE20F6458B00D9A010 /* StoreSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,8 +509,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = RoundaboutTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -474,6 +525,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jagaapple.RoundaboutTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -483,8 +535,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = RoundaboutTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -520,7 +577,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		902DDE9220D6624D00C8CE87 /* Build configuration list for PBXNativeTarget "RoundaboutTests" */ = {
+		902DDE9220D6624D00C8CE87 /* Build configuration list for PBXNativeTarget "RoundaboutSpec" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				902DDE9320D6624D00C8CE87 /* Debug */,
