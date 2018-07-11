@@ -6,22 +6,22 @@ import UIKit
 final class BooksDetailScoreTableViewCell: UITableViewCell {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define internal variables.
+  // MARK: Internal Variables
   static var identifier: String { return "score" }
 
-  // Define private variables.
+  // MARK: Private Variables
   private var book: BookModel!
 
-  // Define IBOutlet variables.
+  // MARK: IBOutlet Variables
   @IBOutlet weak private var scoreLabel: UILabel!
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Internal Functions
+  // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   func prepare(book: BookModel) {
     self.book = book
@@ -29,13 +29,13 @@ final class BooksDetailScoreTableViewCell: UITableViewCell {
     self.bindToAppearance(book: book)
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   func bindToAppearance(book: BookModel) {
     self.scoreLabel.text = String(book.score)
   }
 
-  // IBActions
+  // MARK: IBActions
   // ---------------------------------------------------------------------------------------------------------------------------
   @IBAction private func didTapIncrementScoreButton(_ sender: UIButton) {
     ApplicationStore.shared.dispatch(action: IncrementBookScoreAction(id: self.book.id))

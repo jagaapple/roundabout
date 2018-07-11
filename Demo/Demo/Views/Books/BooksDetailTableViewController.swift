@@ -6,23 +6,23 @@ import UIKit
 final class BooksDetailTableViewController: UITableViewController {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define enums.
+  // MARK: Enums
   private enum Rows: Int {
     case summary
     case score
     case edit
   }
 
-  // Define private variables.
+  // MARK: Private Variables
   private var book: BookModel!
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Overrides
+  // MARK: Overrides
   // ---------------------------------------------------------------------------------------------------------------------------
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     switch segue.destination {
@@ -35,14 +35,14 @@ final class BooksDetailTableViewController: UITableViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    // Subscribe Store.
+    // Subscribe a store.
     ApplicationStore.shared.subscribe(self, didChange: self.bindToAppearance)
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
 
-    // Unsubscribe Store to avoid memory leaks.
+    // Unsubscribe a store to avoid memory leaks.
     ApplicationStore.shared.unsubscribe(self)
   }
 
@@ -55,11 +55,11 @@ final class BooksDetailTableViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let row: Rows = Rows(rawValue: indexPath.row) ?? Rows.summary
+    let row = Rows(rawValue: indexPath.row) ?? Rows.summary
 
     switch row {
     case .summary:
-      guard let cell: BooksDetailSummaryTableViewCell = tableView.dequeueReusableCell(
+      guard let cell = tableView.dequeueReusableCell(
         withIdentifier: BooksDetailSummaryTableViewCell.identifier,
         for: indexPath
       ) as? BooksDetailSummaryTableViewCell else { return UITableViewCell() }
@@ -68,7 +68,7 @@ final class BooksDetailTableViewController: UITableViewController {
 
       return cell
     case .score:
-      guard let cell: BooksDetailScoreTableViewCell = tableView.dequeueReusableCell(
+      guard let cell = tableView.dequeueReusableCell(
         withIdentifier: BooksDetailScoreTableViewCell.identifier,
         for: indexPath
       ) as? BooksDetailScoreTableViewCell else { return UITableViewCell() }
@@ -77,7 +77,7 @@ final class BooksDetailTableViewController: UITableViewController {
 
       return cell
     case .edit:
-      guard let cell: BooksDetailEditTableViewCell = tableView.dequeueReusableCell(
+      guard let cell = tableView.dequeueReusableCell(
         withIdentifier: BooksDetailEditTableViewCell.identifier,
         for: indexPath
       ) as? BooksDetailEditTableViewCell else { return UITableViewCell() }
@@ -87,7 +87,7 @@ final class BooksDetailTableViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    let row: Rows = Rows(rawValue: indexPath.row) ?? Rows.summary
+    let row = Rows(rawValue: indexPath.row) ?? Rows.summary
 
     switch row {
     case .summary: return 416.0
@@ -96,13 +96,13 @@ final class BooksDetailTableViewController: UITableViewController {
     }
   }
 
-  // Internal Functions
+  // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   func prepare(book: BookModel) {
     self.book = book
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func bindToAppearance(_ state: ApplicationState) {
     self.book = state.book.books[self.book.id]

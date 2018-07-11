@@ -6,30 +6,30 @@ import UIKit
 final class BooksEditDefaultTableViewCell: UITableViewCell {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define structs.
+  // MARK: Structs
   struct BooksEditItem {
     let name: String
     let initialValue: String?
     let didInputTextFieldHandler: ((String?) -> Void)
   }
 
-  // Define internal variables.
+  // MARK: Internal Variables
   static var identifier: String { return "default" }
 
-  // Define private variables.
+  // Private Variables
   private(set) var didInputTextFieldHandler: ((String?) -> Void)!
 
-  // Define IBOutlet variables.
+  // MARK: IBOutlet Variables
   @IBOutlet weak private var nameLabel: UILabel!
   @IBOutlet weak private var textField: UITextField!
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Internal Functions
+  // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   func prepare(item: BooksEditItem) {
     self.didInputTextFieldHandler = item.didInputTextFieldHandler
@@ -38,7 +38,7 @@ final class BooksEditDefaultTableViewCell: UITableViewCell {
     self.bindToAppearance(item: item)
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func bindToAppearance(item: BooksEditItem) {
     self.nameLabel.text = item.name

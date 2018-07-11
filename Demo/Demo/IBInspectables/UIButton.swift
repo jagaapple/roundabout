@@ -6,9 +6,9 @@ import UIKit
 extension UIButton {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Configure custom fields.
+  // MARK: Custom Fields
   @IBInspectable var backgroundDisabledColor: UIColor {
     get { return .clear }
     set {
@@ -19,9 +19,9 @@ extension UIButton {
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func createSolidColorImage(_ color: UIColor, size: CGSize) -> UIImage {
     UIGraphicsBeginImageContext(size)

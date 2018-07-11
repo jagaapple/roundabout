@@ -6,9 +6,9 @@ import UIKit
 final class BooksDetailEditTableViewCell: UITableViewCell {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define internal variables.
+  // MARK: Internal Variables
   static var identifier: String { return "edit" }
 
 }

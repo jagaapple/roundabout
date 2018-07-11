@@ -6,9 +6,9 @@ import UIKit
 extension UIView {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Configure custom fields.
+  // MARK: Custom Fields
   @IBInspectable var borderWidth: CGFloat {
     get { return self.layer.borderWidth }
     set { self.layer.borderWidth = newValue }

@@ -6,9 +6,9 @@ import Foundation
 struct BookModel {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define internal variables.
+  // MARK: Internal Variables
   var id: UUID
   var title: String
   var description: String?
