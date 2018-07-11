@@ -6,13 +6,13 @@ import Foundation
 final public class Signal<T: Equatable> {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define types.
+  // MARK: Types
   public typealias DidChangeHandler = ((T) -> Void)
   private typealias SubscriberId = ObjectIdentifier
 
-  // Define public variables.
+  // MARK: Public Variables
   public var rawValue: T {
     didSet {
       if self.rawValue == oldValue { return }
@@ -20,21 +20,21 @@ final public class Signal<T: Equatable> {
     }
   }
 
-  // Define private variables.
+  // MARK: Private Variables
   private var subscribers: [SubscriberId: AnyObject] = [:]
   private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Initializers
+  // MARK: Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
   public init(_ rawValue: T) {
     self.rawValue = rawValue
   }
 
-  // Public Functions
+  // MARK: Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping DidChangeHandler) {
     let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
@@ -50,7 +50,7 @@ final public class Signal<T: Equatable> {
     self.didChangeHandlers.removeValue(forKey: subscriberId)
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func getSubscriberId(of object: AnyObject) -> SubscriberId {
     return ObjectIdentifier(object)

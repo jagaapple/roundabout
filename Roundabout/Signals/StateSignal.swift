@@ -10,13 +10,13 @@ public protocol StateSignalType {
 final public class StateSignal<T: Equatable, ApplicationStateType: State>: StateSignalType {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define types.
+  // MARK: Types
   public typealias DidChangeHandler = ((T) -> Void)
   private typealias SubscriberId = ObjectIdentifier
 
-  // Define public variables.
+  // MARK: Public Variables
   public var rawValue: T {
     didSet {
       if self.rawValue == oldValue { return }
@@ -24,23 +24,23 @@ final public class StateSignal<T: Equatable, ApplicationStateType: State>: State
     }
   }
 
-  // Define private variables.
+  // MARK: Private Variables
   private(set) var inputSource: ((ApplicationStateType) -> T)?
   private var subscribers: [SubscriberId: AnyObject] = [:]
   private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Initializers
+  // MARK: Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
   public init(_ rawValue: T, source: @escaping ((ApplicationStateType) -> T)) {
     self.rawValue = rawValue
     self.inputSource = source
   }
 
-  // Public Functions
+  // MARK: Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping DidChangeHandler) {
     let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
@@ -62,7 +62,7 @@ final public class StateSignal<T: Equatable, ApplicationStateType: State>: State
     self.rawValue = inputSource(applicationState)
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func getSubscriberId(of object: AnyObject) -> SubscriberId {
     return ObjectIdentifier(object)

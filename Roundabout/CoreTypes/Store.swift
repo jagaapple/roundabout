@@ -6,14 +6,14 @@ import Foundation
 final public class Store<ApplicationStateType: State> {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define types.
+  // MARK: Types
   public typealias Middleware = ((Action, ApplicationStateType) -> Void)
   public typealias DidChangeHandler = ((ApplicationStateType) -> Void)
   private typealias SubscriberId = ObjectIdentifier
 
-  // Define private variables.
+  // MARK: Private Variables
   private let middleware: [Middleware]
   private var applicationState: ApplicationStateType = ApplicationStateType.defaultState
   private var subscribers: [SubscriberId: AnyObject] = [:]
@@ -22,15 +22,15 @@ final public class Store<ApplicationStateType: State> {
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Initializers
+  // MARK: Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
   public init(middleware: [Middleware] = []) {
     self.middleware = middleware
   }
 
-  // Public Functions
+  // MARK: Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   public func subscribe(_ subscriber: AnyObject, connectTo signals: [StateSignalType]) {
     let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
@@ -68,11 +68,11 @@ final public class Store<ApplicationStateType: State> {
     self.applicationState = ApplicationStateType.handleAction(state: self.applicationState, action: action)
     self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.applicationState) })
 
-    // Input new states into signals.
+    // Input new States into Signals.
     self.signals.forEach({ (signal: StateSignalType) in signal.input(self.applicationState) })
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func getSubscriberId(of object: AnyObject) -> SubscriberId {
     return ObjectIdentifier(object)
