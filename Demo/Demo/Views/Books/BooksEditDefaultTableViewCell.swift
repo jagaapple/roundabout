@@ -17,8 +17,6 @@ final class BooksEditDefaultTableViewCell: UITableViewCell {
 
   // MARK: Internal Variables
   static var identifier: String { return "default" }
-
-  // Private Variables
   private(set) var didInputTextFieldHandler: ((String?) -> Void)!
 
   // MARK: IBOutlet Variables
