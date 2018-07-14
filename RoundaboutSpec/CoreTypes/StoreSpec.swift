@@ -345,5 +345,19 @@ final class StoreSpec: QuickSpec {
       }
     }
 
+
+    // -------------------------------------------------------------------------------------------------------------------------
+    // MARK: - GET SUBSCRIBER ID
+    // -------------------------------------------------------------------------------------------------------------------------
+    describe("GET SUBSCRIBER ID ::") {
+      beforeEach {
+        store = Store<ApplicationState>()
+      }
+
+      it("should return ObjectIdentifier of an object") {
+        expect(store.getSubscriberId(of: self)).to(equal(ObjectIdentifier(self)))
+      }
+    }
+
   }
 }

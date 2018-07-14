@@ -18,7 +18,8 @@ final public class Store<ApplicationStateType: State> {
   public typealias WillDispatchHandler = ((ApplicationStateType, Action) -> Void)
   /// This type is closure called after an Action is dispatched then reduced by Application State's Reducer.
   public typealias DidDispatchHandler = ((ApplicationStateType, Action, ApplicationStateType) -> Void)
-  internal typealias SubscriberId = ObjectIdentifier
+  /// This type is a subscriber unique ID in order to distinguish some handlers owner.
+  public typealias SubscriberId = ObjectIdentifier
 
   // MARK: Internal Variables
   internal var applicationState: ApplicationStateType = ApplicationStateType.defaultState
@@ -92,7 +93,7 @@ final public class Store<ApplicationStateType: State> {
     })
   }
 
-  /// Set a handler called before an Action is dispatched then reduced by Application State's Reducer.
+  /// Sets a handler called before an Action is dispatched then reduced by Application State's Reducer.
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameters:
@@ -105,7 +106,7 @@ final public class Store<ApplicationStateType: State> {
     self.willDispatchHandlers[id] = handler
   }
 
-  /// Remove a handler called before an Action is dispatched then reduced by Application State's Reducer.
+  /// Removes a handler called before an Action is dispatched then reduced by Application State's Reducer.
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameter id: A target handler ID.
@@ -113,7 +114,7 @@ final public class Store<ApplicationStateType: State> {
     self.willDispatchHandlers.removeValue(forKey: id)
   }
 
-  /// Set a handler called after an Action is dispatched then reduced by Application State's Reducer.
+  /// Sets a handler called after an Action is dispatched then reduced by Application State's Reducer.
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameters:
@@ -128,7 +129,7 @@ final public class Store<ApplicationStateType: State> {
     self.didDispatchHandlers[id] = handler
   }
 
-  /// Remove a handler called after an Action is dispatched then reduced by Application State's Reducer.
+  /// Removes a handler called after an Action is dispatched then reduced by Application State's Reducer.
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameter id: A target handler ID.
@@ -136,9 +137,12 @@ final public class Store<ApplicationStateType: State> {
     self.didDispatchHandlers.removeValue(forKey: id)
   }
 
-  // MARK: Internal Functions
-  // ---------------------------------------------------------------------------------------------------------------------------
-  internal func getSubscriberId(of object: AnyObject) -> SubscriberId {
+  /// Returns a subscriber unique ID in order to distinguish some handlers owner.
+  /// In generally, this method is used by related library developers.
+  ///
+  /// - Parameter object: Subscriber class or object.
+  /// - Returns: A subscriber unique ID.
+  public func getSubscriberId(of object: AnyObject) -> SubscriberId {
     return ObjectIdentifier(object)
   }
 
