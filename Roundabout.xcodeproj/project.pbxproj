@@ -22,6 +22,7 @@
 		90636FE320F6485200D9A010 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FE220F6485200D9A010 /* UserState.swift */; };
 		90636FE720F648CA00D9A010 /* UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FE620F648CA00D9A010 /* UserActions.swift */; };
 		90636FE920F64A6B00D9A010 /* SampleEmptyClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FE820F64A6B00D9A010 /* SampleEmptyClass.swift */; };
+		90636FED20F9C64900D9A010 /* SignalSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FEC20F9C64900D9A010 /* SignalSpec.swift */; };
 		90C2A86820F4BF3C00545298 /* StateSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2A86720F4BF3C00545298 /* StateSignal.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		90636FE220F6485200D9A010 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		90636FE620F648CA00D9A010 /* UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActions.swift; sourceTree = "<group>"; };
 		90636FE820F64A6B00D9A010 /* SampleEmptyClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEmptyClass.swift; sourceTree = "<group>"; };
+		90636FEC20F9C64900D9A010 /* SignalSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalSpec.swift; sourceTree = "<group>"; };
 		90C2A86720F4BF3C00545298 /* StateSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateSignal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +156,7 @@
 				90636FDF20F647F200D9A010 /* SampleClasses */,
 				902DDE7C20D6624D00C8CE87 /* Products */,
 				90636FDC20F6455F00D9A010 /* CoreTypes */,
+				90636FEB20F9C63B00D9A010 /* Signals */,
 				902DDE8B20D6624D00C8CE87 /* Info.plist */,
 			);
 			path = RoundaboutSpec;
@@ -217,6 +220,14 @@
 				90636FE020F6480100D9A010 /* ApplicationState.swift */,
 			);
 			path = Redux;
+			sourceTree = "<group>";
+		};
+		90636FEB20F9C63B00D9A010 /* Signals */ = {
+			isa = PBXGroup;
+			children = (
+				90636FEC20F9C64900D9A010 /* SignalSpec.swift */,
+			);
+			path = Signals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,6 +374,7 @@
 				90636FE320F6485200D9A010 /* UserState.swift in Sources */,
 				90636FE120F6480100D9A010 /* ApplicationState.swift in Sources */,
 				90636FDE20F6458B00D9A010 /* StoreSpec.swift in Sources */,
+				90636FED20F9C64900D9A010 /* SignalSpec.swift in Sources */,
 				90636FE920F64A6B00D9A010 /* SampleEmptyClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
