@@ -5,7 +5,7 @@ import Roundabout
 import Quick
 import Nimble
 
-class StoreSpec: QuickSpec {
+final class StoreSpec: QuickSpec {
   override func spec() {
     var store: Store<ApplicationState>!
 

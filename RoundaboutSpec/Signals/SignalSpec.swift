@@ -5,7 +5,7 @@ import Roundabout
 import Quick
 import Nimble
 
-class SignalSpec: QuickSpec {
+final class SignalSpec: QuickSpec {
   override func spec() {
     var signal: Signal<Int>!
     var optionalSignal: Signal<Int?>!
