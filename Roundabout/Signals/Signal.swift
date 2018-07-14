@@ -3,7 +3,7 @@
 // =============================================================================================================================
 import Foundation
 
-final public class Signal<T: Equatable> {
+public class Signal<T: Equatable> {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: - Variables
@@ -11,7 +11,7 @@ final public class Signal<T: Equatable> {
   // MARK: Types
   /// DidChangeHandler is called every time when a raw value is changed.
   public typealias DidChangeHandler = ((T) -> Void)
-  private typealias SubscriberId = ObjectIdentifier
+  internal typealias SubscriberId = ObjectIdentifier
 
   // MARK: Public Variables
   /// A target value to detect changes. When this value is set a new value, a handler is called, but this value is set the same
