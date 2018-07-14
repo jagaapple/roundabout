@@ -100,6 +100,7 @@ final public class Store<ApplicationStateType: State> {
   }
 
   /// Sets a handler called before an Action is dispatched then reduced by Application State's Reducer.
+  ///
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameters:
@@ -121,6 +122,7 @@ final public class Store<ApplicationStateType: State> {
   }
 
   /// Sets a handler called after an Action is dispatched then reduced by Application State's Reducer.
+  ///
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameters:
@@ -136,6 +138,7 @@ final public class Store<ApplicationStateType: State> {
   }
 
   /// Removes a handler called after an Action is dispatched then reduced by Application State's Reducer.
+  ///
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameter id: A target handler ID.
@@ -144,6 +147,7 @@ final public class Store<ApplicationStateType: State> {
   }
 
   /// Sets a handler called after unsubscribing from a subscriber.
+  ///
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameters:
@@ -156,6 +160,7 @@ final public class Store<ApplicationStateType: State> {
   }
 
   /// Removes a handler called after unsubscribing from a subscriber.
+  ///
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameter id: A target handler ID.
@@ -164,6 +169,7 @@ final public class Store<ApplicationStateType: State> {
   }
 
   /// Returns a subscriber unique ID in order to distinguish some handlers owner.
+  ///
   /// In generally, this method is used by related library developers.
   ///
   /// - Parameter object: Subscriber class or object.

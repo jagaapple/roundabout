@@ -19,7 +19,9 @@ public protocol State {
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  /// This function is Reducer. In generally, we should update this State using only Actions related to itself.
+  /// This function is Reducer.
+  ///
+  /// In generally, we should update this State using only Actions related to itself.
   ///
   /// - Parameters:
   ///   - state: The current this State.
