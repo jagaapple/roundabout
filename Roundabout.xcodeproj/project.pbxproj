@@ -18,6 +18,10 @@
 		90636FDA20F6455400D9A010 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 90636FD620F6452D00D9A010 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90636FDB20F6455400D9A010 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 90636FD520F6452D00D9A010 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90636FDE20F6458B00D9A010 /* StoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FDD20F6458B00D9A010 /* StoreSpec.swift */; };
+		90636FE120F6480100D9A010 /* ApplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FE020F6480100D9A010 /* ApplicationState.swift */; };
+		90636FE320F6485200D9A010 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FE220F6485200D9A010 /* UserState.swift */; };
+		90636FE720F648CA00D9A010 /* UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FE620F648CA00D9A010 /* UserActions.swift */; };
+		90636FE920F64A6B00D9A010 /* SampleEmptyClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FE820F64A6B00D9A010 /* SampleEmptyClass.swift */; };
 		90C2A86820F4BF3C00545298 /* StateSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2A86720F4BF3C00545298 /* StateSignal.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +70,10 @@
 		90636FD520F6452D00D9A010 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		90636FD620F6452D00D9A010 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		90636FDD20F6458B00D9A010 /* StoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSpec.swift; sourceTree = "<group>"; };
+		90636FE020F6480100D9A010 /* ApplicationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationState.swift; sourceTree = "<group>"; };
+		90636FE220F6485200D9A010 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
+		90636FE620F648CA00D9A010 /* UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActions.swift; sourceTree = "<group>"; };
+		90636FE820F64A6B00D9A010 /* SampleEmptyClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEmptyClass.swift; sourceTree = "<group>"; };
 		90C2A86720F4BF3C00545298 /* StateSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateSignal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +151,7 @@
 		902DDE8820D6624D00C8CE87 /* RoundaboutSpec */ = {
 			isa = PBXGroup;
 			children = (
+				90636FDF20F647F200D9A010 /* SampleClasses */,
 				902DDE7C20D6624D00C8CE87 /* Products */,
 				90636FDC20F6455F00D9A010 /* CoreTypes */,
 				902DDE8B20D6624D00C8CE87 /* Info.plist */,
@@ -173,6 +182,41 @@
 				90636FDD20F6458B00D9A010 /* StoreSpec.swift */,
 			);
 			path = CoreTypes;
+			sourceTree = "<group>";
+		};
+		90636FDF20F647F200D9A010 /* SampleClasses */ = {
+			isa = PBXGroup;
+			children = (
+				90636FEA20F64A9A00D9A010 /* Redux */,
+				90636FE820F64A6B00D9A010 /* SampleEmptyClass.swift */,
+			);
+			path = SampleClasses;
+			sourceTree = "<group>";
+		};
+		90636FE420F648A100D9A010 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				90636FE520F648B200D9A010 /* User */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		90636FE520F648B200D9A010 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				90636FE220F6485200D9A010 /* UserState.swift */,
+				90636FE620F648CA00D9A010 /* UserActions.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		90636FEA20F64A9A00D9A010 /* Redux */ = {
+			isa = PBXGroup;
+			children = (
+				90636FE420F648A100D9A010 /* Models */,
+				90636FE020F6480100D9A010 /* ApplicationState.swift */,
+			);
+			path = Redux;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,7 +359,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90636FE720F648CA00D9A010 /* UserActions.swift in Sources */,
+				90636FE320F6485200D9A010 /* UserState.swift in Sources */,
+				90636FE120F6480100D9A010 /* ApplicationState.swift in Sources */,
 				90636FDE20F6458B00D9A010 /* StoreSpec.swift in Sources */,
+				90636FE920F64A6B00D9A010 /* SampleEmptyClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,7 +564,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = RoundaboutTests/Info.plist;
+				INFOPLIST_FILE = RoundaboutSpec/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -542,7 +590,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = RoundaboutTests/Info.plist;
+				INFOPLIST_FILE = RoundaboutSpec/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
