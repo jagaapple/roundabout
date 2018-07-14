@@ -15,8 +15,9 @@ final class StoreSpec: QuickSpec {
     describe("SUBSCRIBE WITH DID CHANGE HANDLER ::") {
       var handlerCallCount: Int = 0
       beforeEach {
-        store = Store<ApplicationState>()
         handlerCallCount = 0
+
+        store = Store<ApplicationState>()
       }
       afterEach { store.unsubscribe(self) }
 
@@ -55,9 +56,9 @@ final class StoreSpec: QuickSpec {
     describe("UNSUBSCRIBE ::") {
       var handlerCallCount: Int = 0
       beforeEach {
-        store = Store<ApplicationState>()
         handlerCallCount = 0
 
+        store = Store<ApplicationState>()
         store.subscribe(self, didChange: { (_) in handlerCallCount += 1 })
       }
 
@@ -108,14 +109,238 @@ final class StoreSpec: QuickSpec {
           store.dispatch(action: action)
         }
 
-        it("should call ApplicationState's Reducer") {
+        it("should call Application State's Reducer") {
           expect(reducerCallCount).to(equal(1))
         }
 
-        it("should pass ApplicationState and the Action to ApplicationState's Reducer") {
+        it("should pass Application State and the Action to Application State's Reducer") {
           expect(hasState).to(beTrue())
           expect(hasAction).to(beTrue())
           expect(isTheAction).to(beTrue())
+        }
+      }
+    }
+
+
+    // -------------------------------------------------------------------------------------------------------------------------
+    // MARK: - Set Will Dispatch Handler
+    // -------------------------------------------------------------------------------------------------------------------------
+    describe("SET WILL DISPATCH HANDLER ::") {
+      let action: Action = IncrementUserAgeAction()
+      let id: String = "id"
+      var handlerCallCount: Int = 0
+      var hasState: Bool = false
+      var hasAction: Bool = false
+      var isTheAction: Bool = false
+      var userAge: Int?
+      beforeEach {
+        handlerCallCount = 0
+        hasState = false
+        hasAction = false
+        isTheAction = false
+        userAge = false
+
+        store = Store<ApplicationState>()
+      }
+
+      context("when setting a handler with an unique ID,") {
+        beforeEach {
+          store.setWillDispatchHandler(id: id, handler: { (state: Any, action: Any) in
+            handlerCallCount += 1
+            hasState = state is ApplicationState
+            hasAction = action is Action
+            isTheAction = action is IncrementUserAgeAction
+            userAge = (state as? ApplicationState)?.user.age
+          })
+        }
+        afterEach { store.removeWillDispatchHandler(id: id) }
+
+        context("dispatching an Action,") {
+          beforeEach { store.dispatch(action: action) }
+
+          it("should call the handler") {
+            expect(handlerCallCount).to(equal(1))
+          }
+
+          it("should pass the current Application State and the Action to the handler") {
+            expect(hasState).to(beTrue())
+            expect(hasAction).to(beTrue())
+            expect(isTheAction).to(beTrue())
+            expect(userAge).to(equal(0))
+          }
+        }
+      }
+
+      context("when setting a handler with the ID used already") {
+        var secondHandlerCallCount: Int = 0
+        beforeEach {
+          secondHandlerCallCount = 0
+
+          store.setWillDispatchHandler(id: id, handler: { (_, _) in handlerCallCount += 1 })
+          store.setWillDispatchHandler(id: id, handler: { (_, _) in secondHandlerCallCount += 1 })
+        }
+        afterEach { store.removeWillDispatchHandler(id: id) }
+
+        context("dispatching an Action,") {
+          beforeEach { store.dispatch(action: action) }
+
+          it("should not call the handler") {
+            expect(handlerCallCount).to(equal(1))
+            expect(secondHandlerCallCount).to(equal(0))
+          }
+        }
+      }
+    }
+
+
+    // -------------------------------------------------------------------------------------------------------------------------
+    // MARK: - Remove Will Dispatch Handler
+    // -------------------------------------------------------------------------------------------------------------------------
+    describe("REMOVE WILL DISPATCH HANDLER ::") {
+      let action: Action = IncrementUserAgeAction()
+      let id: String = "id"
+      var handlerCallCount: Int = 0
+      beforeEach {
+        handlerCallCount = 0
+
+        store = Store<ApplicationState>()
+        store.setWillDispatchHandler(id: id, handler: { (_, _) in handlerCallCount += 1 })
+      }
+      afterEach { store.removeWillDispatchHandler(id: id) }
+
+      context("when removing with an ID after setting a handler with the ID,") {
+        beforeEach { store.removeWillDispatchHandler(id: id) }
+
+        context("when dispatching an Action,") {
+          beforeEach { store.dispatch(action: action) }
+
+          it("should not call the handler") {
+            expect(handlerCallCount).to(equal(0))
+          }
+        }
+      }
+
+      context("when not removing with an ID after setting a handler with another ID,") {
+        beforeEach { store.removeWillDispatchHandler(id: "dummy") }
+
+        context("when dispatching an Action,") {
+          beforeEach { store.dispatch(action: action) }
+
+          it("should call the handler") {
+            expect(handlerCallCount).to(equal(1))
+          }
+        }
+      }
+    }
+
+
+    // -------------------------------------------------------------------------------------------------------------------------
+    // MARK: - Set Did Dispatch Handler
+    // -------------------------------------------------------------------------------------------------------------------------
+    describe("SET DID DISPATCH HANDLER ::") {
+      let action: Action = IncrementUserAgeAction()
+      let id: String = "id"
+      var handlerCallCount: Int = 0
+      var hasNewState: Bool = false
+      var hasOldState: Bool = false
+      var hasAction: Bool = false
+      var isTheAction: Bool = false
+      beforeEach {
+        handlerCallCount = 0
+        hasNewState = false
+        hasOldState = false
+        hasAction = false
+        isTheAction = false
+
+        store = Store<ApplicationState>()
+      }
+
+      context("when setting a handler with an unique ID,") {
+        beforeEach {
+          store.setDidDispatchHandler(id: id, handler: { (newState: Any, action: Any, oldState: Any) in
+            handlerCallCount += 1
+            hasNewState = (newState is ApplicationState) && ((newState as? ApplicationState)?.user.age == 1)
+            hasOldState = (oldState is ApplicationState) && ((oldState as? ApplicationState)?.user.age == 0)
+            hasAction = action is Action
+            isTheAction = action is IncrementUserAgeAction
+          })
+        }
+        afterEach { store.removeDidDispatchHandler(id: id) }
+
+        context("dispatching an Action,") {
+          beforeEach { store.dispatch(action: action) }
+
+          it("should call the handler") {
+            expect(handlerCallCount).to(equal(1))
+          }
+
+          it("should pass a new and old Application State and the Action to the handler") {
+            expect(hasNewState).to(beTrue())
+            expect(hasOldState).to(beTrue())
+            expect(hasAction).to(beTrue())
+            expect(isTheAction).to(beTrue())
+          }
+        }
+      }
+
+      context("when setting a handler with the ID used already") {
+        var secondHandlerCallCount: Int = 0
+        beforeEach {
+          secondHandlerCallCount = 0
+
+          store.setDidDispatchHandler(id: id, handler: { (_, _, _) in handlerCallCount += 1 })
+          store.setDidDispatchHandler(id: id, handler: { (_, _, _) in secondHandlerCallCount += 1 })
+        }
+        afterEach { store.removeDidDispatchHandler(id: id) }
+
+        context("dispatching an Action,") {
+          beforeEach { store.dispatch(action: action) }
+
+          it("should not call the handler") {
+            expect(handlerCallCount).to(equal(1))
+            expect(secondHandlerCallCount).to(equal(0))
+          }
+        }
+      }
+    }
+
+
+    // -------------------------------------------------------------------------------------------------------------------------
+    // MARK: - Remove Did Dispatch Handler
+    // -------------------------------------------------------------------------------------------------------------------------
+    describe("REMOVE DID DISPATCH HANDLER ::") {
+      let action: Action = IncrementUserAgeAction()
+      let id: String = "id"
+      var handlerCallCount: Int = 0
+      beforeEach {
+        handlerCallCount = 0
+
+        store = Store<ApplicationState>()
+        store.setDidDispatchHandler(id: id, handler: { (_, _, _) in handlerCallCount += 1 })
+      }
+      afterEach { store.removeDidDispatchHandler(id: id) }
+
+      context("when removing with an ID after setting a handler with the ID,") {
+        beforeEach { store.removeDidDispatchHandler(id: id) }
+
+        context("when dispatching an Action,") {
+          beforeEach { store.dispatch(action: action) }
+
+          it("should not call the handler") {
+            expect(handlerCallCount).to(equal(0))
+          }
+        }
+      }
+
+      context("when not removing with an ID after setting a handler with another ID,") {
+        beforeEach { store.removeDidDispatchHandler(id: "dummy") }
+
+        context("when dispatching an Action,") {
+          beforeEach { store.dispatch(action: action) }
+
+          it("should call the handler") {
+            expect(handlerCallCount).to(equal(1))
+          }
         }
       }
     }

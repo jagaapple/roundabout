@@ -3,7 +3,7 @@
 // =============================================================================================================================
 import Roundabout
 
-final class UserState: State {
+struct UserState: State {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // Variables
@@ -20,7 +20,7 @@ final class UserState: State {
   // Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   static func handleAction(state: UserState, action: Action) -> UserState {
-    let nextState: UserState = state
+    var nextState: UserState = state
 
     switch action {
     case let action as UpdateUserFieldAction:

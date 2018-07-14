@@ -12,14 +12,24 @@ final public class Store<ApplicationStateType: State> {
   public typealias Middleware = ((Action, ApplicationStateType) -> Void)
   /// DidChangeHandler is called every time after an Action is dispatched.
   public typealias DidChangeHandler = ((ApplicationStateType) -> Void)
-  private typealias SubscriberId = ObjectIdentifier
+  /// An unique ID to set or remove willDispatchHandler or didDispatchHandler for some developers.
+  public typealias HandlerId = String
+  /// This type is closure called before an Action is dispatched then reduced by Application State's Reducer.
+  public typealias WillDispatchHandler = ((ApplicationStateType, Action) -> Void)
+  /// This type is closure called after an Action is dispatched then reduced by Application State's Reducer.
+  public typealias DidDispatchHandler = ((ApplicationStateType, Action, ApplicationStateType) -> Void)
+  internal typealias SubscriberId = ObjectIdentifier
+
+  // MARK: Internal Variables
+  internal var applicationState: ApplicationStateType = ApplicationStateType.defaultState
+  internal var subscribers: [SubscriberId: AnyObject] = [:]
+  internal var signals: [StateSignalType] = []
 
   // MARK: Private Variables
   private let middleware: [Middleware]
-  private var applicationState: ApplicationStateType = ApplicationStateType.defaultState
-  private var subscribers: [SubscriberId: AnyObject] = [:]
   private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
-  private var signals: [StateSignalType] = []
+  private var willDispatchHandlers: [HandlerId: WillDispatchHandler] = [:]
+  private var didDispatchHandlers: [HandlerId: DidDispatchHandler] = [:]
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -38,13 +48,6 @@ final public class Store<ApplicationStateType: State> {
 
   // MARK: Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  public func subscribe(_ subscriber: AnyObject, connectTo signals: [StateSignalType]) {
-    let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
-    self.subscribers[newSubscriberId] = subscriber
-
-    self.signals = signals
-  }
-
   /// Subscribes in order to detect dispatchings and execute a specific processes. To avoid memory leaks, unsubscribe when
   /// detection become unnecessary.
   ///
@@ -68,32 +71,74 @@ final public class Store<ApplicationStateType: State> {
     self.didChangeHandlers.removeValue(forKey: subscriberId)
   }
 
-  public func createSignal<T: Equatable>(
-    _ source: @escaping ((ApplicationStateType) -> T)
-  ) -> StateSignal<T, ApplicationStateType> {
-    let defaultValue: T = source(self.applicationState)
-    return StateSignal(defaultValue, source: source)
-  }
-
-
-  /// Dispatch an Action to a Store. The action is reduced by some States after dispatching.
+  /// Dispatches an Action to a Store. The action is reduced by some States after dispatching.
   ///
   /// - Parameter action: Struct object of Action.
   public func dispatch(action: Action) {
     // Call middleware.
     self.middleware.forEach({ (ware: Middleware) in ware(action, self.applicationState) })
 
+    // Call handlers for some developers.
+    self.willDispatchHandlers.forEach({ (_, handler: WillDispatchHandler) in handler(self.applicationState, action) })
+
     // Dispatch.
+    let oldApplicationState: ApplicationStateType = self.applicationState
     self.applicationState = ApplicationStateType.handleAction(state: self.applicationState, action: action)
     self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.applicationState) })
 
-    // Input new States into Signals.
-    self.signals.forEach({ (signal: StateSignalType) in signal.input(self.applicationState) })
+    // Call handlers for some developers.
+    self.didDispatchHandlers.forEach({ (_, handler: DidDispatchHandler) in
+      handler(self.applicationState, action, oldApplicationState)
+    })
   }
 
-  // MARK: Private Functions
+  /// Set a handler called before an Action is dispatched then reduced by Application State's Reducer.
+  /// In generally, this method is used by related library developers.
+  ///
+  /// - Parameters:
+  ///   - id: An unique ID in order to set or remove a handler. When a specific ID exists already, a handler is not set.
+  ///   - handler: A handler is possible to get Application State and a dispatched Action as arguments before reduced.
+  ///     - state: An Application State before reduced.
+  ///     - action: A dispatched Action.
+  public func setWillDispatchHandler(id: HandlerId, handler: @escaping WillDispatchHandler) {
+    if self.willDispatchHandlers[id] != nil { return }
+    self.willDispatchHandlers[id] = handler
+  }
+
+  /// Remove a handler called before an Action is dispatched then reduced by Application State's Reducer.
+  /// In generally, this method is used by related library developers.
+  ///
+  /// - Parameter id: A target handler ID.
+  public func removeWillDispatchHandler(id: HandlerId) {
+    self.willDispatchHandlers.removeValue(forKey: id)
+  }
+
+  /// Set a handler called after an Action is dispatched then reduced by Application State's Reducer.
+  /// In generally, this method is used by related library developers.
+  ///
+  /// - Parameters:
+  ///   - id: An unique ID in order to set or remove a handler. When a specific ID exists already, a handler is not set.
+  ///   - handler: A handler is possible to get Application State, a dispatched Action, and old Application State as arguments
+  ///     after reduced.
+  ///     - newState: A new Application State after reduced.
+  ///     - action: A dispatched Action.
+  ///     - oldState: A old Application State before reduced.
+  public func setDidDispatchHandler(id: HandlerId, handler: @escaping DidDispatchHandler) {
+    if self.didDispatchHandlers[id] != nil { return }
+    self.didDispatchHandlers[id] = handler
+  }
+
+  /// Remove a handler called after an Action is dispatched then reduced by Application State's Reducer.
+  /// In generally, this method is used by related library developers.
+  ///
+  /// - Parameter id: A target handler ID.
+  public func removeDidDispatchHandler(id: HandlerId) {
+    self.didDispatchHandlers.removeValue(forKey: id)
+  }
+
+  // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  private func getSubscriberId(of object: AnyObject) -> SubscriberId {
+  internal func getSubscriberId(of object: AnyObject) -> SubscriberId {
     return ObjectIdentifier(object)
   }
 
