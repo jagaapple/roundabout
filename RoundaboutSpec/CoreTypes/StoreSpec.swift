@@ -211,7 +211,7 @@ final class StoreSpec: QuickSpec {
       context("when removing with an ID after setting a handler with the ID,") {
         beforeEach { store.removeWillDispatchHandler(id: id) }
 
-        context("when dispatching an Action,") {
+        context("dispatching an Action,") {
           beforeEach { store.dispatch(action: action) }
 
           it("should not call the handler") {
@@ -223,7 +223,7 @@ final class StoreSpec: QuickSpec {
       context("when not removing with an ID after setting a handler with another ID,") {
         beforeEach { store.removeWillDispatchHandler(id: "dummy") }
 
-        context("when dispatching an Action,") {
+        context("dispatching an Action,") {
           beforeEach { store.dispatch(action: action) }
 
           it("should call the handler") {
@@ -323,7 +323,7 @@ final class StoreSpec: QuickSpec {
       context("when removing with an ID after setting a handler with the ID,") {
         beforeEach { store.removeDidDispatchHandler(id: id) }
 
-        context("when dispatching an Action,") {
+        context("dispatching an Action,") {
           beforeEach { store.dispatch(action: action) }
 
           it("should not call the handler") {
@@ -335,8 +335,107 @@ final class StoreSpec: QuickSpec {
       context("when not removing with an ID after setting a handler with another ID,") {
         beforeEach { store.removeDidDispatchHandler(id: "dummy") }
 
-        context("when dispatching an Action,") {
+        context("dispatching an Action,") {
           beforeEach { store.dispatch(action: action) }
+
+          it("should call the handler") {
+            expect(handlerCallCount).to(equal(1))
+          }
+        }
+      }
+    }
+
+
+    // -------------------------------------------------------------------------------------------------------------------------
+    // MARK: - Set Did Unsubscribe Handler
+    // -------------------------------------------------------------------------------------------------------------------------
+    describe("SET DID UNSUBSCRIBE HANDLER ::") {
+      let id: String = "id"
+      var handlerCallCount: Int = 0
+      beforeEach {
+        handlerCallCount = 0
+
+        store = Store<ApplicationState>()
+      }
+
+      context("when setting a handler with an unique ID,") {
+        var handlerGotSubscriberId: Store<ApplicationState>.SubscriberId?
+        beforeEach {
+          handlerGotSubscriberId = nil
+
+          store.setDidUnsubscribeHandler(id: id, handler: { (subscriberId: Store.SubscriberId) in
+            handlerCallCount += 1
+            handlerGotSubscriberId = subscriberId
+          })
+        }
+        afterEach { store.removeDidUnsubscribeHandler(id: id) }
+
+        context("unsubscribing,") {
+          beforeEach { store.unsubscribe(self) }
+
+          it("should call the handler") {
+            expect(handlerCallCount).to(equal(1))
+          }
+
+          it("should pass the subscriber ID") {
+            expect(handlerGotSubscriberId).to(equal(store.getSubscriberId(of: self)))
+          }
+        }
+      }
+
+      context("when setting a handler with the ID used already") {
+        var secondHandlerCallCount: Int = 0
+        beforeEach {
+          secondHandlerCallCount = 0
+
+          store.setDidUnsubscribeHandler(id: id, handler: { (_) in handlerCallCount += 1 })
+          store.setDidUnsubscribeHandler(id: id, handler: { (_) in secondHandlerCallCount += 1 })
+        }
+        afterEach { store.removeDidUnsubscribeHandler(id: id) }
+
+        context("unsubscribing,") {
+          beforeEach { store.unsubscribe(self) }
+
+          it("should not call the handler") {
+            expect(handlerCallCount).to(equal(1))
+            expect(secondHandlerCallCount).to(equal(0))
+          }
+        }
+      }
+    }
+
+
+    // -------------------------------------------------------------------------------------------------------------------------
+    // MARK: - Remove Did Unsubscribe Handler
+    // -------------------------------------------------------------------------------------------------------------------------
+    describe("REMOVE DID UNSUBSCRIBE HANDLER ::") {
+      let id: String = "id"
+      var handlerCallCount: Int = 0
+      beforeEach {
+        handlerCallCount = 0
+
+        store = Store<ApplicationState>()
+        store.setDidUnsubscribeHandler(id: id, handler: { (_) in handlerCallCount += 1 })
+      }
+      afterEach { store.removeDidUnsubscribeHandler(id: id) }
+
+      context("when removing with an ID after setting a handler with the ID,") {
+        beforeEach { store.removeDidUnsubscribeHandler(id: id) }
+
+        context("unsubscribing,") {
+          beforeEach { store.unsubscribe(self) }
+
+          it("should not call the handler") {
+            expect(handlerCallCount).to(equal(0))
+          }
+        }
+      }
+
+      context("when not removing with an ID after setting a handler with another ID,") {
+        beforeEach { store.removeDidUnsubscribeHandler(id: "dummy") }
+
+        context("unsubscribing,") {
+          beforeEach { store.unsubscribe(self) }
 
           it("should call the handler") {
             expect(handlerCallCount).to(equal(1))

@@ -18,19 +18,21 @@ final public class Store<ApplicationStateType: State> {
   public typealias WillDispatchHandler = ((ApplicationStateType, Action) -> Void)
   /// This type is closure called after an Action is dispatched then reduced by Application State's Reducer.
   public typealias DidDispatchHandler = ((ApplicationStateType, Action, ApplicationStateType) -> Void)
+  /// This type is closure called after unsubscribing.
+  public typealias DidUnsubscribeHandler = ((SubscriberId) -> Void)
   /// This type is a subscriber unique ID in order to distinguish some handlers owner.
   public typealias SubscriberId = ObjectIdentifier
 
-  // MARK: Internal Variables
-  internal var applicationState: ApplicationStateType = ApplicationStateType.defaultState
-  internal var subscribers: [SubscriberId: AnyObject] = [:]
-  internal var signals: [StateSignalType] = []
+  // MARK: Public Variables
+  public private(set) var applicationState: ApplicationStateType = ApplicationStateType.defaultState
 
   // MARK: Private Variables
   private let middleware: [Middleware]
+  private var subscribers: [SubscriberId: AnyObject] = [:]
   private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
   private var willDispatchHandlers: [HandlerId: WillDispatchHandler] = [:]
   private var didDispatchHandlers: [HandlerId: DidDispatchHandler] = [:]
+  private var didUnsubscribeHandlers: [HandlerId: DidUnsubscribeHandler] = [:]
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -70,6 +72,9 @@ final public class Store<ApplicationStateType: State> {
     let subscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers.removeValue(forKey: subscriberId)
     self.didChangeHandlers.removeValue(forKey: subscriberId)
+
+    // Call handlers for some developers.
+    self.didUnsubscribeHandlers.forEach({ (_, handler: DidUnsubscribeHandler) in handler(subscriberId) })
   }
 
   /// Dispatches an Action to a Store. The action is reduced by some States after dispatching.
@@ -135,6 +140,26 @@ final public class Store<ApplicationStateType: State> {
   /// - Parameter id: A target handler ID.
   public func removeDidDispatchHandler(id: HandlerId) {
     self.didDispatchHandlers.removeValue(forKey: id)
+  }
+
+  /// Sets a handler called after unsubscribing from a subscriber.
+  /// In generally, this method is used by related library developers.
+  ///
+  /// - Parameters:
+  ///   - id: An unique ID in order to set or remove a handler. When a specific ID exists already, a handler is not set.
+  ///   - handler: A handler is possible to get unsubscribed subscriber ID.
+  ///     - subscriberId: An unsubscribed subscriber ID.
+  public func setDidUnsubscribeHandler(id: HandlerId, handler: @escaping DidUnsubscribeHandler) {
+    if self.didUnsubscribeHandlers[id] != nil { return }
+    self.didUnsubscribeHandlers[id] = handler
+  }
+
+  /// Removes a handler called after unsubscribing from a subscriber.
+  /// In generally, this method is used by related library developers.
+  ///
+  /// - Parameter id: A target handler ID.
+  public func removeDidUnsubscribeHandler(id: HandlerId) {
+    self.didUnsubscribeHandlers.removeValue(forKey: id)
   }
 
   /// Returns a subscriber unique ID in order to distinguish some handlers owner.
