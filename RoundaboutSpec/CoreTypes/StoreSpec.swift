@@ -28,7 +28,7 @@ class StoreSpec: QuickSpec {
         }
       }
 
-      context("when some State is changed,") {
+      context("when an Action is dispatched,") {
         context("already subscribing,") {
           beforeEach {
             store.subscribe(self, didChange: { (_) in handlerCallCount += 1 })
@@ -69,7 +69,7 @@ class StoreSpec: QuickSpec {
         }
       }
 
-      context("when some State is changed after unsubscribing,") {
+      context("when an Action is dispatched after unsubscribing,") {
         beforeEach {
           store.unsubscribe(self)
           store.dispatch(action: IncrementUserAgeAction())

@@ -10,7 +10,7 @@ final public class Store<ApplicationStateType: State> {
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: Types
   public typealias Middleware = ((Action, ApplicationStateType) -> Void)
-  /// DidChangeHandler is called when some States is changed.
+  /// DidChangeHandler is called every time after an Action is dispatched.
   public typealias DidChangeHandler = ((ApplicationStateType) -> Void)
   private typealias SubscriberId = ObjectIdentifier
 
@@ -45,12 +45,12 @@ final public class Store<ApplicationStateType: State> {
     self.signals = signals
   }
 
-  /// Subscribes in order to detect all states changed and execute a specific processes. To avoid memory leaks, unsubscribe when
-  /// change detection become unnecessary.
+  /// Subscribes in order to detect dispatchings and execute a specific processes. To avoid memory leaks, unsubscribe when
+  /// detection become unnecessary.
   ///
   /// - Parameters:
   ///   - subscriber: Class or object in order to distinguish who has didChangeHandler.
-  ///   - didChangeHandler: Closure 
+  ///   - didChangeHandler: This closure is called every time after an Action is dispatched.
   public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping DidChangeHandler) {
     let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers[newSubscriberId] = subscriber

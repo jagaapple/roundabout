@@ -107,7 +107,7 @@ final class BooksDetailTableViewController: UITableViewController {
   private func bindToAppearance(_ state: ApplicationState) {
     self.book = state.book.books[self.book.id]
 
-    // This may affect performance because re-render a table view every time when some State is changed.
+    // This may affect performance because re-render a table view every time after an Action is dispatched.
     // You should implement an efficient re-rendering algorithm.
     self.tableView.reloadData()
   }

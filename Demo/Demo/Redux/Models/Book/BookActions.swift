@@ -5,7 +5,7 @@ import Roundabout
 
 // Define Actions related to this model
 // -----------------------------------------------------------------------------------------------------------------------------
-// Creates some struct as Action in global scope in this case, but you can create them in a State using `extension` keyword.
+// Creates some structs as Action in global scope in this case, but you can create them in a State using `extension` keyword.
 //
 // Example:
 //   extension BookState {

@@ -79,7 +79,7 @@ final class BooksIndexTableViewController: UITableViewController {
   private func bindToAppearance(_ state: ApplicationState) {
     self.books = Array(state.book.books.values)
 
-    // This may affect performance because re-render a table view every time when some State is changed.
+    // This may affect performance because re-render a table view every time after an Action is dispatched.
     // You should implement an efficient re-rendering algorithm.
     self.tableView.reloadData()
   }

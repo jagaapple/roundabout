@@ -3,7 +3,7 @@
 // =============================================================================================================================
 import Foundation
 
-/// State is stored globally in a Store and it is read-only. When you want to change a some State, you dispatch an Action to do.
+/// State is stored globally in a Store and it is read-only. When you want to change a State, you dispatch an Action to do.
 public protocol State {
 
   // ---------------------------------------------------------------------------------------------------------------------------
