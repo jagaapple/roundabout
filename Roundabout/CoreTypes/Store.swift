@@ -10,6 +10,7 @@ final public class Store<ApplicationStateType: State> {
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: Types
   public typealias Middleware = ((Action, ApplicationStateType) -> Void)
+  /// DidChangeHandler is called when some States is changed.
   public typealias DidChangeHandler = ((ApplicationStateType) -> Void)
   private typealias SubscriberId = ObjectIdentifier
 
@@ -26,6 +27,11 @@ final public class Store<ApplicationStateType: State> {
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
+  /// Creates a Store for the specified Application State.
+  ///
+  /// Single source of truth in Roundabout, so the application should have a single Store.
+  ///
+  /// - Parameter middleware: Ordered list of middlewares processed before acting Application State's reducer.
   public init(middleware: [Middleware] = []) {
     self.middleware = middleware
   }
@@ -39,6 +45,12 @@ final public class Store<ApplicationStateType: State> {
     self.signals = signals
   }
 
+  /// Subscribes in order to detect all states changed and execute a specific processes. To avoid memory leaks, unsubscribe when
+  /// change detection become unnecessary.
+  ///
+  /// - Parameters:
+  ///   - subscriber: Class or object in order to distinguish who has didChangeHandler.
+  ///   - didChangeHandler: Closure 
   public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping DidChangeHandler) {
     let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers[newSubscriberId] = subscriber
@@ -47,6 +59,9 @@ final public class Store<ApplicationStateType: State> {
     didChangeHandler(self.applicationState)
   }
 
+  /// Unsubscribes in order to free the memory allocated by the subscriber's didChangeHandler.
+  ///
+  /// - Parameter subscriber: Class or object in order to distinguish who has a registered didChangeHandler.
   public func unsubscribe(_ subscriber: AnyObject) {
     let subscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers.removeValue(forKey: subscriberId)
@@ -55,11 +70,15 @@ final public class Store<ApplicationStateType: State> {
 
   public func createSignal<T: Equatable>(
     _ source: @escaping ((ApplicationStateType) -> T)
-    ) -> StateSignal<T, ApplicationStateType> {
+  ) -> StateSignal<T, ApplicationStateType> {
     let defaultValue: T = source(self.applicationState)
     return StateSignal(defaultValue, source: source)
   }
 
+
+  /// Dispatch an Action to a Store. The action is reduced by some States after dispatching.
+  ///
+  /// - Parameter action: Struct object of Action.
   public func dispatch(action: Action) {
     // Call middleware.
     self.middleware.forEach({ (ware: Middleware) in ware(action, self.applicationState) })

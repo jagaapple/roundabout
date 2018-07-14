@@ -3,7 +3,7 @@
 // =============================================================================================================================
 import Roundabout
 
-// Define a State to give to a Store
+// Define a State to pass to a Store
 // -----------------------------------------------------------------------------------------------------------------------------
 // ApplicationState defined in this should be a parent for some States. Most of applications will requires multiple States, so
 // you would need this approach.
