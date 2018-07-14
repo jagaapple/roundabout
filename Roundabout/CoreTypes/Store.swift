@@ -3,6 +3,9 @@
 // =============================================================================================================================
 import Foundation
 
+/// This type is a Store subscriber unique ID in order to distinguish some handlers owner.
+public typealias StoreSubscriberId = ObjectIdentifier
+
 final public class Store<ApplicationStateType: State> {
 
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -19,17 +22,15 @@ final public class Store<ApplicationStateType: State> {
   /// This type is closure called after an Action is dispatched then reduced by Application State's Reducer.
   public typealias DidDispatchHandler = ((ApplicationStateType, Action, ApplicationStateType) -> Void)
   /// This type is closure called after unsubscribing.
-  public typealias DidUnsubscribeHandler = ((SubscriberId) -> Void)
-  /// This type is a subscriber unique ID in order to distinguish some handlers owner.
-  public typealias SubscriberId = ObjectIdentifier
+  public typealias DidUnsubscribeHandler = ((StoreSubscriberId) -> Void)
 
   // MARK: Public Variables
   public private(set) var applicationState: ApplicationStateType = ApplicationStateType.defaultState
 
   // MARK: Private Variables
   private let middleware: [Middleware]
-  private var subscribers: [SubscriberId: AnyObject] = [:]
-  private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
+  private var subscribers: [StoreSubscriberId: AnyObject] = [:]
+  private var didChangeHandlers: [StoreSubscriberId: DidChangeHandler] = [:]
   private var willDispatchHandlers: [HandlerId: WillDispatchHandler] = [:]
   private var didDispatchHandlers: [HandlerId: DidDispatchHandler] = [:]
   private var didUnsubscribeHandlers: [HandlerId: DidUnsubscribeHandler] = [:]
@@ -58,7 +59,7 @@ final public class Store<ApplicationStateType: State> {
   ///   - subscriber: Class or object in order to distinguish who has didChangeHandler.
   ///   - didChangeHandler: This closure is called every time after an Action is dispatched.
   public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping DidChangeHandler) {
-    let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
+    let newSubscriberId: StoreSubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers[newSubscriberId] = subscriber
     self.didChangeHandlers[newSubscriberId] = didChangeHandler
 
@@ -69,7 +70,7 @@ final public class Store<ApplicationStateType: State> {
   ///
   /// - Parameter subscriber: Class or object in order to distinguish who has a registered didChangeHandler.
   public func unsubscribe(_ subscriber: AnyObject) {
-    let subscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
+    let subscriberId: StoreSubscriberId = self.getSubscriberId(of: subscriber)
     self.subscribers.removeValue(forKey: subscriberId)
     self.didChangeHandlers.removeValue(forKey: subscriberId)
 
@@ -167,7 +168,7 @@ final public class Store<ApplicationStateType: State> {
   ///
   /// - Parameter object: Subscriber class or object.
   /// - Returns: A subscriber unique ID.
-  public func getSubscriberId(of object: AnyObject) -> SubscriberId {
+  public func getSubscriberId(of object: AnyObject) -> StoreSubscriberId {
     return ObjectIdentifier(object)
   }
 

@@ -359,11 +359,11 @@ final class StoreSpec: QuickSpec {
       }
 
       context("when setting a handler with an unique ID,") {
-        var handlerGotSubscriberId: Store<ApplicationState>.SubscriberId?
+        var handlerGotSubscriberId: StoreSubscriberId?
         beforeEach {
           handlerGotSubscriberId = nil
 
-          store.setDidUnsubscribeHandler(id: id, handler: { (subscriberId: Store.SubscriberId) in
+          store.setDidUnsubscribeHandler(id: id, handler: { (subscriberId: StoreSubscriberId) in
             handlerCallCount += 1
             handlerGotSubscriberId = subscriberId
           })
