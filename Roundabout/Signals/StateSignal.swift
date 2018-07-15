@@ -23,7 +23,7 @@ final public class StateSignal<T: Equatable, ApplicationStateType: State>: Signa
   ///
   /// - Parameters:
   ///   - rawValue: A default value to set as Signal raw value.
-  ///   - source: A closure which returns a value to set a new value from Application State.
+  ///   - source: A closure to return a value in order to set a new value from Application State.
   public init(_ rawValue: T, source: @escaping ((ApplicationStateType) -> T)) {
     super.init(rawValue)
 
