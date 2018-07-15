@@ -1,11 +1,6 @@
-//
-//  Roundabout.h
-//  Roundabout
-//
-//  Created by Jaga Apple on 6/17/30 H.
-//  Copyright © 30 Heisei Jaga Apple. All rights reserved.
-//
-
+// =============================================================================================================================
+// ROUNDABOUT - ROUNDABOUT.H
+// =============================================================================================================================
 #import <UIKit/UIKit.h>
 
 //! Project version number for Roundabout.
