@@ -6,12 +6,12 @@ import UIKit
 final class BooksIndexDefaultTableViewCell: UITableViewCell {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define internal variables.
+  // MARK: Internal Variables
   static var identifier: String { return "default" }
 
-  // Define private variables.
+  // MARK: Private Variables
   @IBOutlet weak private var titleLabel: UILabel!
   @IBOutlet weak private var descriptionLabel: UILabel!
   @IBOutlet weak private var scoreLabel: UILabel!
@@ -19,9 +19,9 @@ final class BooksIndexDefaultTableViewCell: UITableViewCell {
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Internal Functions
+  // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   func prepare(book: BookModel) {
     self.book = book
@@ -29,7 +29,7 @@ final class BooksIndexDefaultTableViewCell: UITableViewCell {
     self.bindToAppearance()
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func bindToAppearance() {
     self.titleLabel.text = self.book.title

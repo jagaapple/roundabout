@@ -1,40 +1,39 @@
 // =============================================================================================================================
-// DEMO - IB INSPECTABLES - UI BUTTON
+// ROUNDABOUT SPEC - SAMPLE CLASSES - REDUX - MODELS - USER - USER STATE
 // =============================================================================================================================
-import UIKit
+import Roundabout
 
-extension UIButton {
+struct UserState: State {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // MARK: - Variables
+  // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // MARK: Custom Fields
-  @IBInspectable var backgroundDisabledColor: UIColor {
-    get { return .clear }
-    set {
-      let size: CGSize = self.frame.size
-      self.setBackgroundImage(self.createSolidColorImage(newValue, size: size), for: .disabled)
+  // Define internal variables.
+  static var defaultState: UserState { return UserState() }
+  var name: String?
+  var age: Int = 0
+
+
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Functions
+  // ---------------------------------------------------------------------------------------------------------------------------
+  // Internal Functions
+  // ---------------------------------------------------------------------------------------------------------------------------
+  static func handleAction(state: UserState, action: Action) -> UserState {
+    var nextState: UserState = state
+
+    switch action {
+    case let action as UpdateUserFieldAction:
+      nextState.name = action.name
+      nextState.age = action.age
+    case _ as IncrementUserAgeAction:
+      nextState.age += 1
+    case _ as DecrementUserAgeAction:
+      nextState.age -= 1
+    default: break
     }
-  }
 
-
-  // ---------------------------------------------------------------------------------------------------------------------------
-  // MARK: - Functions
-  // ---------------------------------------------------------------------------------------------------------------------------
-  // MARK: Private Functions
-  // ---------------------------------------------------------------------------------------------------------------------------
-  private func createSolidColorImage(_ color: UIColor, size: CGSize) -> UIImage {
-    UIGraphicsBeginImageContext(size)
-
-    let rect = CGRect(origin: .zero, size: size)
-    let context = UIGraphicsGetCurrentContext()
-    context!.setFillColor(color.cgColor)
-    context!.fill(rect)
-
-    let image = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-
-    return image!
+    return nextState
   }
 
 }

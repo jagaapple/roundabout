@@ -1,7 +1,13 @@
 // =============================================================================================================================
-// ROUNDABOUT - CORE TYPES - ACTION
+// ROUNDABOUT SPEC - SAMPLE CLASSES - REDUX - MODELS - USER - USER ACTIONS
 // =============================================================================================================================
-import Foundation
+import Roundabout
 
-/// Action reperesents an intention to change the State, and the only way to get data into a Store.
-public protocol Action {}
+struct UpdateUserFieldAction: Action {
+  let name: String
+  let age: Int
+}
+
+struct IncrementUserAgeAction: Action {}
+
+struct DecrementUserAgeAction: Action {}

@@ -8,9 +8,9 @@ fileprivate typealias DataSource = UITableViewDataSource
 extension BooksEditViewController: Delegate, DataSource {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define private variables.
+  // MARK: Private Variables
   private typealias FieldItem = BooksEditDefaultTableViewCell.BooksEditItem
   private var fieldItems: [FieldItem] {
     return [
@@ -29,9 +29,9 @@ extension BooksEditViewController: Delegate, DataSource {
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Internal Functions
+  // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
@@ -42,24 +42,21 @@ extension BooksEditViewController: Delegate, DataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell: BooksEditDefaultTableViewCell = tableView.dequeueReusableCell(
+    guard let cell = tableView.dequeueReusableCell(
       withIdentifier: BooksEditDefaultTableViewCell.identifier,
       for: indexPath
       ) as? BooksEditDefaultTableViewCell else { return UITableViewCell() }
 
-    let item: FieldItem = self.fieldItems[indexPath.row]
+    let item = self.fieldItems[indexPath.row]
     cell.prepare(item: item)
 
     return cell
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func didInputTitleTextField(_ text: String?) {
-    guard let text: String = text else {
-      self.navigationBarSaveButton.isEnabled = false
-      return
-    }
+    guard let text = text else { self.navigationBarSaveButton.isEnabled = false; return }
 
     self.navigationBarSaveButton.isEnabled = !text.isEmpty
     self.bookTitle = text

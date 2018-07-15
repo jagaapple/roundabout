@@ -1,40 +1,30 @@
 // =============================================================================================================================
-// DEMO - IB INSPECTABLES - UI BUTTON
+// ROUNDABOUT SPEC - SAMPLE CLASSES - REDUX - APPLICATION STATE
 // =============================================================================================================================
-import UIKit
+import Roundabout
 
-extension UIButton {
+struct ApplicationState: State {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // MARK: - Variables
+  // Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // MARK: Custom Fields
-  @IBInspectable var backgroundDisabledColor: UIColor {
-    get { return .clear }
-    set {
-      let size: CGSize = self.frame.size
-      self.setBackgroundImage(self.createSolidColorImage(newValue, size: size), for: .disabled)
-    }
-  }
+  // Define internal variables.
+  static var defaultState: ApplicationState { return ApplicationState() }
+  static var didReduceHandler: ((Any, Any) -> Void)?
+  var user: UserState = UserState.defaultState
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // MARK: - Functions
+  // Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // MARK: Private Functions
+  // Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  private func createSolidColorImage(_ color: UIColor, size: CGSize) -> UIImage {
-    UIGraphicsBeginImageContext(size)
+  static func handleAction(state: ApplicationState, action: Action) -> ApplicationState {
+    ApplicationState.didReduceHandler?(state, action)
 
-    let rect = CGRect(origin: .zero, size: size)
-    let context = UIGraphicsGetCurrentContext()
-    context!.setFillColor(color.cgColor)
-    context!.fill(rect)
-
-    let image = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-
-    return image!
+    return ApplicationState(
+      user: UserState.handleAction(state: state.user, action: action)
+    )
   }
 
 }

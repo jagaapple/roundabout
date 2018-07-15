@@ -6,29 +6,29 @@ import UIKit
 final class BooksIndexTableViewController: UITableViewController {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define private variables.
+  // MARK: Private Variables
   private var books: [BookModel] = []
   private var selectedBookIndex: Int?
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Overrides
+  // MARK: Overrides
   // ---------------------------------------------------------------------------------------------------------------------------
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    // Subscribe Store.
+    // Subscribe a Store.
     ApplicationStore.shared.subscribe(self, didChange: self.bindToAppearance)
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
 
-    // Unsubscribe Store to avoid memory leaks.
+    // Unsubscribe a Store to avoid memory leaks.
     ApplicationStore.shared.unsubscribe(self)
   }
 
@@ -37,9 +37,9 @@ final class BooksIndexTableViewController: UITableViewController {
     case let viewController as BooksEditViewController:
       viewController.prepare(book: nil)
     case let viewController as BooksDetailTableViewController:
-      guard let selectedBookIndex: Int = self.selectedBookIndex else { return }
+      guard let selectedBookIndex = self.selectedBookIndex else { return }
 
-      let selectedBook: BookModel = self.books[selectedBookIndex]
+      let selectedBook = self.books[selectedBookIndex]
       viewController.prepare(book: selectedBook)
     default: return
     }
@@ -54,12 +54,12 @@ final class BooksIndexTableViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell: BooksIndexDefaultTableViewCell = tableView.dequeueReusableCell(
+    guard let cell = tableView.dequeueReusableCell(
       withIdentifier: BooksIndexDefaultTableViewCell.identifier,
       for: indexPath
     ) as? BooksIndexDefaultTableViewCell else { return UITableViewCell() }
 
-    let book: BookModel = self.books[indexPath.row]
+    let book = self.books[indexPath.row]
     cell.prepare(book: book)
 
     return cell
@@ -74,12 +74,12 @@ final class BooksIndexTableViewController: UITableViewController {
     self.performSegue(withIdentifier: "toBookDetail", sender: nil)
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func bindToAppearance(_ state: ApplicationState) {
     self.books = Array(state.book.books.values)
 
-    // This may affect performance because re-render a table view every time when some State is changed.
+    // This may affect performance because re-render a table view every time after an Action is dispatched.
     // You should implement an efficient re-rendering algorithm.
     self.tableView.reloadData()
   }

@@ -1,7 +1,8 @@
 // =============================================================================================================================
-// ROUNDABOUT - CORE TYPES - ACTION
+// ROUNDABOUT - SIGNALS - STATE SIGNAL TYPE
 // =============================================================================================================================
 import Foundation
 
-/// Action reperesents an intention to change the State, and the only way to get data into a Store.
-public protocol Action {}
+public protocol StateSignalType {
+  func input(_ state: Any)
+}

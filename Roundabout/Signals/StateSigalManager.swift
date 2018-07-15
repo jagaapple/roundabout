@@ -1,48 +1,43 @@
 // =============================================================================================================================
-// DEMO - VIEWS - BOOKS - BOOKS DETAIL SCORE TABLE VIEW CELL
+// ROUNDABOUT - SIGNALS - STATE SIGNAL MANAGER
 // =============================================================================================================================
-import UIKit
+import Foundation
 
-final class BooksDetailScoreTableViewCell: UITableViewCell {
+internal final class StateSignalManager {
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: Internal Variables
-  static var identifier: String { return "score" }
+  internal static let shared: StateSignalManager = StateSignalManager()
 
   // MARK: Private Variables
-  private var book: BookModel!
-
-  // MARK: IBOutlet Variables
-  @IBOutlet weak private var scoreLabel: UILabel!
+  private var signals: [StoreSubscriberId: [StateSignalType]] = [:]
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
+  // MARK: Initializers
+  // ---------------------------------------------------------------------------------------------------------------------------
+  private init() {
+    // Disable an internal initializer in order to implement Singleton class.
+  }
+
   // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  func prepare(book: BookModel) {
-    self.book = book
-
-    self.bindToAppearance(book: book)
+  internal func register(signals: [StateSignalType], of subscriberId: StoreSubscriberId) {
+    self.signals[subscriberId] = signals
   }
 
-  // MARK: Private Functions
-  // ---------------------------------------------------------------------------------------------------------------------------
-  func bindToAppearance(book: BookModel) {
-    self.scoreLabel.text = String(book.score)
+  internal func removeSignals(of subscriberId: StoreSubscriberId) {
+    self.signals.removeValue(forKey: subscriberId)
   }
 
-  // MARK: IBActions
-  // ---------------------------------------------------------------------------------------------------------------------------
-  @IBAction private func didTapIncrementScoreButton(_ sender: UIButton) {
-    ApplicationStore.shared.dispatch(action: IncrementBookScoreAction(id: self.book.id))
-  }
-
-  @IBAction private func didTapDecrementScoreButton(_ sender: UIButton) {
-    ApplicationStore.shared.dispatch(action: DecrementBookScoreAction(id: self.book.id))
+  internal func inputAll(state: Any) {
+    self.signals.forEach({ (_, signals: [StateSignalType]) in
+      signals.forEach({ (signal: StateSignalType) in signal.input(state) })
+    })
   }
 
 }

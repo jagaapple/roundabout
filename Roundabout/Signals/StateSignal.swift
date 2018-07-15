@@ -3,69 +3,44 @@
 // =============================================================================================================================
 import Foundation
 
-public protocol StateSignalType {
-  func input(_ state: Any)
-}
-
-final public class StateSignal<T: Equatable, ApplicationStateType: State>: StateSignalType {
+final public class StateSignal<T: Equatable, ApplicationStateType: State>: Signal<T>, StateSignalType {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define types.
-  public typealias DidChangeHandler = ((T) -> Void)
-  private typealias SubscriberId = ObjectIdentifier
-
-  // Define public variables.
-  public var rawValue: T {
-    didSet {
-      if self.rawValue == oldValue { return }
-      self.didChangeHandlers.forEach({ (_, didChangeHandler: DidChangeHandler) in didChangeHandler(self.rawValue) })
-    }
-  }
-
-  // Define private variables.
-  private(set) var inputSource: ((ApplicationStateType) -> T)?
-  private var subscribers: [SubscriberId: AnyObject] = [:]
-  private var didChangeHandlers: [SubscriberId: DidChangeHandler] = [:]
+  // MARK: Private Variables
+  private var inputSource: ((ApplicationStateType) -> T)?
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Initializers
+  // MARK: Initializers
   // ---------------------------------------------------------------------------------------------------------------------------
+  /// Creates a StateSignal to detect a value changes of Application State.
+  ///
+  /// **In generally, this initializer is called by** `store.createSignal(_:)` . **Maybe you don't need to call this directly**.
+  ///
+  /// - Parameters:
+  ///   - rawValue: A default value to set as Signal raw value.
+  ///   - source: A closure to return a value in order to set a new value from Application State.
   public init(_ rawValue: T, source: @escaping ((ApplicationStateType) -> T)) {
-    self.rawValue = rawValue
+    super.init(rawValue)
+
     self.inputSource = source
   }
 
-  // Public Functions
+  // MARK: Public Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  public func subscribe(_ subscriber: AnyObject, didChange didChangeHandler: @escaping DidChangeHandler) {
-    let newSubscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
-    self.subscribers[newSubscriberId] = subscriber
-    self.didChangeHandlers[newSubscriberId] = didChangeHandler
-
-    didChangeHandler(self.rawValue)
-  }
-
-  public func unsubscribe(_ subscriber: AnyObject) {
-    let subscriberId: SubscriberId = self.getSubscriberId(of: subscriber)
-    self.subscribers.removeValue(forKey: subscriberId)
-    self.didChangeHandlers.removeValue(forKey: subscriberId)
-  }
-
+  /// Sets a value from Application State using a closure.
+  ///
+  /// **In generally, this method is called by** `store.createSignal(_:)` . **Maybe you don't need to call this directly**.
+  ///
+  /// - Parameter state: A new Application State. If a State does not conform ApplicationStateType, it is ignored.
   public func input(_ state: Any) {
     guard let applicationState: ApplicationStateType = state as? ApplicationStateType else { return }
     guard let inputSource: ((ApplicationStateType) -> T) = self.inputSource else { return }
     self.rawValue = inputSource(applicationState)
-  }
-
-  // Private Functions
-  // ---------------------------------------------------------------------------------------------------------------------------
-  private func getSubscriberId(of object: AnyObject) -> SubscriberId {
-    return ObjectIdentifier(object)
   }
 
 }

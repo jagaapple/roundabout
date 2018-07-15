@@ -7,26 +7,26 @@ import Roundabout
 final class BooksEditViewController: UIViewController {
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Variables
+  // MARK: - Variables
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Define internal variables.
+  // MARK: Internal Variables
   var bookId: UUID?
-  var bookTitle: String = ""
+  var bookTitle = ""
   var bookDescription: String?
 
-  // Define private variables.
+  // MARK: Private Variables
   private var isAddingMode: Bool { return (self.bookId == nil) }
 
-  // Define IBOutlet variables.
+  // MARK: IBOutlet Variables
   @IBOutlet weak var navigationBarSaveButton: UIButton!
   @IBOutlet weak private var navigationBarTitleLabel: UILabel!
   @IBOutlet weak private var tableView: UITableView!
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Functions
+  // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  // Overrides
+  // MARK: Overrides
   // ---------------------------------------------------------------------------------------------------------------------------
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -34,25 +34,25 @@ final class BooksEditViewController: UIViewController {
     self.bindToAppearance()
   }
 
-  // Internal Functions
+  // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   func prepare(book: BookModel?) {
-    if let book: BookModel = book {
+    if let book = book {
       self.bookId = book.id
       self.bookTitle = book.title
       self.bookDescription = book.description
     }
   }
 
-  // Private Functions
+  // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
   private func bindToAppearance() {
-    let title: String = (self.isAddingMode) ? "Add Book" : "Edit Book"
+    let title = (self.isAddingMode) ? "Add Book" : "Edit Book"
     self.navigationBarSaveButton.isEnabled = !self.bookTitle.isEmpty
     self.navigationBarTitleLabel.text = title
   }
 
-  // IBActions
+  // MARK: IBActions
   // ---------------------------------------------------------------------------------------------------------------------------
   @IBAction private func didTapNavigationBarCancelButton(_ sender: UIButton) {
     self.dismiss(animated: true, completion: nil)
@@ -62,9 +62,9 @@ final class BooksEditViewController: UIViewController {
     if self.bookTitle.isEmpty { return }
 
     // Create an Action.
-    // In original Redux (JavaScript version), should create an Action using Action Creator before dispatch Action to Store,
-    // but in Roundabout, it uses Struct in Swift as Action. Struct has an initializer to set values to itself properties, so
-    // Action Creator is equal to an initializer of Struct in Roundabout.
+    // In original Redux (JavaScript version), we should create an Action using Action Creator before dispatch the Action to a
+    // Store, but in Roundabout, it uses Struct in Swift as Action. Struct has an initializer to set values to itself
+    // properties, so Action Creator is equal to an initializer of Struct in Roundabout.
     var action: Action!
     if self.isAddingMode {
       action = CreateBookAction(title: self.bookTitle, description: self.bookDescription)
@@ -72,7 +72,7 @@ final class BooksEditViewController: UIViewController {
       action = UpdateBookBasicFieldAction(id: self.bookId!, title: self.bookTitle, description: self.bookDescription)
     }
 
-    // Dispatch an Action to Store.
+    // Dispatch an Action to a Store.
     ApplicationStore.shared.dispatch(action: action)
 
     self.dismiss(animated: true, completion: nil)
