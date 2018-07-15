@@ -103,28 +103,35 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYZ-ie-atF" userLabel="Navigation Bar View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2s-v6-bg5" userLabel="Cancel Button">
-                                        <rect key="frame" x="16" y="50" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Cancel"/>
-                                        <connections>
-                                            <action selector="didTapNavigationBarCancelButton:" destination="z3C-wL-iHm" eventType="touchUpInside" id="2A2-kT-Jp8"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Title Title Title Title Title Title Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYE-2v-cIf" userLabel="Title Label">
-                                        <rect key="frame" x="73.999999999999986" y="55.666666666666657" width="227.66666666666663" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZc-5c-glB" userLabel="Add Button">
-                                        <rect key="frame" x="324" y="50" width="35" height="32"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Save"/>
-                                        <connections>
-                                            <action selector="didTapNavigationBarSaveButton:" destination="z3C-wL-iHm" eventType="touchUpInside" id="j0b-H5-pqv"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZDI-yK-A2j" userLabel="Navigation Bar Stack View">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2s-v6-bg5" userLabel="Cancel Button">
+                                                <rect key="frame" x="0.0" y="12" width="74" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="8" maxY="0.0"/>
+                                                <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="didTapNavigationBarCancelButton:" destination="z3C-wL-iHm" eventType="touchUpInside" id="2A2-kT-Jp8"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Title Title Title Title Title Title Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYE-2v-cIf" userLabel="Title Label">
+                                                <rect key="frame" x="74" y="11.999999999999998" width="242" height="20.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZc-5c-glB" userLabel="Add Button">
+                                                <rect key="frame" x="316" y="12" width="59" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="16" maxY="0.0"/>
+                                                <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="didTapNavigationBarSaveButton:" destination="z3C-wL-iHm" eventType="touchUpInside" id="j0b-H5-pqv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tea-ak-sVr" userLabel="Bottom Separator View">
                                         <rect key="frame" x="0.0" y="87.666666666666671" width="375" height="0.3333333333333286"/>
                                         <color key="backgroundColor" red="0.74901960784313726" green="0.74901960784313726" blue="0.74901960784313726" alpha="1" colorSpace="calibratedRGB"/>
@@ -135,17 +142,12 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="xYE-2v-cIf" firstAttribute="centerY" secondItem="nYZ-ie-atF" secondAttribute="centerY" constant="22" id="2FB-bU-K6y"/>
                                     <constraint firstAttribute="trailing" secondItem="Tea-ak-sVr" secondAttribute="trailing" id="7Zz-09-juu"/>
-                                    <constraint firstItem="xYE-2v-cIf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v2s-v6-bg5" secondAttribute="trailing" constant="8" id="8h1-ez-I0F"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZDI-yK-A2j" secondAttribute="trailing" id="Azs-Ob-eER"/>
+                                    <constraint firstItem="ZDI-yK-A2j" firstAttribute="leading" secondItem="nYZ-ie-atF" secondAttribute="leading" id="Ghh-4J-D6g"/>
                                     <constraint firstAttribute="bottom" secondItem="Tea-ak-sVr" secondAttribute="bottom" id="HRG-F4-YVh"/>
-                                    <constraint firstItem="vZc-5c-glB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xYE-2v-cIf" secondAttribute="trailing" constant="8" id="Ndq-h6-RV6"/>
-                                    <constraint firstItem="v2s-v6-bg5" firstAttribute="centerY" secondItem="nYZ-ie-atF" secondAttribute="centerY" constant="22" id="QWh-tj-5Xc"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZDI-yK-A2j" secondAttribute="bottom" id="QFI-PD-80I"/>
                                     <constraint firstItem="Tea-ak-sVr" firstAttribute="leading" secondItem="nYZ-ie-atF" secondAttribute="leading" id="ZGr-Qd-G6Q"/>
-                                    <constraint firstItem="vZc-5c-glB" firstAttribute="centerY" secondItem="nYZ-ie-atF" secondAttribute="centerY" constant="22" id="cGH-fZ-SpC"/>
-                                    <constraint firstAttribute="trailing" secondItem="vZc-5c-glB" secondAttribute="trailing" constant="16" id="ez3-tj-scR"/>
-                                    <constraint firstItem="xYE-2v-cIf" firstAttribute="centerX" secondItem="nYZ-ie-atF" secondAttribute="centerX" id="kID-0P-usz"/>
-                                    <constraint firstItem="v2s-v6-bg5" firstAttribute="leading" secondItem="nYZ-ie-atF" secondAttribute="leading" constant="16" id="tbs-S1-uji"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="xrc-1u-70L">
@@ -198,6 +200,7 @@
                             <constraint firstAttribute="trailing" secondItem="nYZ-ie-atF" secondAttribute="trailing" id="4Em-4j-Gmw"/>
                             <constraint firstAttribute="trailing" secondItem="xrc-1u-70L" secondAttribute="trailing" id="72F-n4-sWG"/>
                             <constraint firstItem="nYZ-ie-atF" firstAttribute="leading" secondItem="Bv3-Nz-SDB" secondAttribute="leading" id="ExQ-01-4eg"/>
+                            <constraint firstItem="ZDI-yK-A2j" firstAttribute="top" secondItem="xew-Vx-JHr" secondAttribute="top" id="X7f-7S-qdN"/>
                             <constraint firstItem="xrc-1u-70L" firstAttribute="top" secondItem="nYZ-ie-atF" secondAttribute="bottom" id="aWy-9T-Jig"/>
                             <constraint firstItem="xew-Vx-JHr" firstAttribute="top" secondItem="nYZ-ie-atF" secondAttribute="bottom" constant="-44" id="gBX-rX-evm"/>
                             <constraint firstItem="xrc-1u-70L" firstAttribute="leading" secondItem="Bv3-Nz-SDB" secondAttribute="leading" id="hI6-vJ-5Xx"/>
@@ -259,13 +262,13 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Title Book Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kba-eI-aLR" userLabel="Title Label">
-                                            <rect key="frame" x="16" y="288" width="343" height="28.666666666666686"/>
+                                            <rect key="frame" x="16" y="288" width="343" height="29"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feZ-lV-I9N" userLabel="Description Label">
-                                            <rect key="frame" x="16" y="340.66666666666669" width="343" height="38.333333333333314"/>
+                                            <rect key="frame" x="16" y="341" width="343" height="38.333333333333314"/>
                                             <string key="text">This is description. This is description. This is description. This is description. This is description. This is description. This is description. This is description.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -313,7 +316,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K71-ep-QTR" userLabel="Score Label">
-                                            <rect key="frame" x="203.66666666666666" y="18" width="44.333333333333343" height="28.666666666666671"/>
+                                            <rect key="frame" x="203.66666666666666" y="18.333333333333329" width="44.333333333333343" height="28.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
