@@ -27,6 +27,7 @@
 		90636FF120F9E1DC00D9A010 /* StateSignalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FF020F9E1DC00D9A010 /* StateSignalType.swift */; };
 		90636FF320F9E1F900D9A010 /* Store+StateSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FF220F9E1F900D9A010 /* Store+StateSignal.swift */; };
 		90636FF520FA082C00D9A010 /* StateSigalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FF420FA082C00D9A010 /* StateSigalManager.swift */; };
+		90636FF920FB401000D9A010 /* Store+StateSignalSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90636FF820FB401000D9A010 /* Store+StateSignalSpec.swift */; };
 		90C2A86820F4BF3C00545298 /* StateSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2A86720F4BF3C00545298 /* StateSignal.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		90636FF020F9E1DC00D9A010 /* StateSignalType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateSignalType.swift; sourceTree = "<group>"; };
 		90636FF220F9E1F900D9A010 /* Store+StateSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Store+StateSignal.swift"; sourceTree = "<group>"; };
 		90636FF420FA082C00D9A010 /* StateSigalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateSigalManager.swift; sourceTree = "<group>"; };
+		90636FF820FB401000D9A010 /* Store+StateSignalSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Store+StateSignalSpec.swift"; sourceTree = "<group>"; };
 		90C2A86720F4BF3C00545298 /* StateSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateSignal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -238,6 +240,7 @@
 			children = (
 				90636FEC20F9C64900D9A010 /* SignalSpec.swift */,
 				90636FEE20F9CE4B00D9A010 /* StateSignalSpec.swift */,
+				90636FF820FB401000D9A010 /* Store+StateSignalSpec.swift */,
 			);
 			path = Signals;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90636FF920FB401000D9A010 /* Store+StateSignalSpec.swift in Sources */,
 				90636FE720F648CA00D9A010 /* UserActions.swift in Sources */,
 				90636FE320F6485200D9A010 /* UserState.swift in Sources */,
 				90636FEF20F9CE4B00D9A010 /* StateSignalSpec.swift in Sources */,
