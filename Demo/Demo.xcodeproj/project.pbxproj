@@ -21,6 +21,7 @@
 		902DDF6F20E4018C00C8CE87 /* ApplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DDF6E20E4018C00C8CE87 /* ApplicationState.swift */; };
 		903822EC20E96241005AEAE0 /* BooksDetailSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903822EB20E96241005AEAE0 /* BooksDetailSummaryTableViewCell.swift */; };
 		903822EE20E96457005AEAE0 /* BooksDetailScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903822ED20E96457005AEAE0 /* BooksDetailScoreTableViewCell.swift */; };
+		90636FFD20FB463300D9A010 /* Roundabout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90636FFC20FB463300D9A010 /* Roundabout.framework */; };
 		90C8C6FF20E560AF003DE394 /* BooksIndexDefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C8C6FE20E560AF003DE394 /* BooksIndexDefaultTableViewCell.swift */; };
 		90C8C70220E7DE9B003DE394 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C8C70120E7DE9B003DE394 /* BookModel.swift */; };
 		90C8C70520E7ED48003DE394 /* BooksDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C8C70420E7ED48003DE394 /* BooksDetailTableViewController.swift */; };
@@ -47,6 +48,7 @@
 		902DDF6E20E4018C00C8CE87 /* ApplicationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationState.swift; sourceTree = "<group>"; };
 		903822EB20E96241005AEAE0 /* BooksDetailSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksDetailSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		903822ED20E96457005AEAE0 /* BooksDetailScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksDetailScoreTableViewCell.swift; sourceTree = "<group>"; };
+		90636FFC20FB463300D9A010 /* Roundabout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Roundabout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90C8C6FE20E560AF003DE394 /* BooksIndexDefaultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksIndexDefaultTableViewCell.swift; sourceTree = "<group>"; };
 		90C8C70120E7DE9B003DE394 /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		90C8C70420E7ED48003DE394 /* BooksDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90636FFD20FB463300D9A010 /* Roundabout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +113,7 @@
 		902DDF4520E3FBD300C8CE87 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90636FFC20FB463300D9A010 /* Roundabout.framework */,
 				902DDF4620E3FBD300C8CE87 /* Roundabout.framework */,
 			);
 			name = Frameworks;
