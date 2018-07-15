@@ -1,8 +1,6 @@
 // =============================================================================================================================
 // ROUNDABOUT - CORE TYPES - STORE
 // =============================================================================================================================
-import Foundation
-
 /// This type is a Store subscriber unique ID in order to distinguish some handlers owner.
 public typealias StoreSubscriberId = ObjectIdentifier
 
