@@ -46,10 +46,15 @@ extension Store {
   ///
   /// - Parameters:
   ///   - subscriber: Class or object in order to distinguish who has signals.
+  ///   - didChangeHandler: This closure is called every time after an Action is dispatched (optional).
   ///   - signals: Target StateSignals in order to set values from Application State automatically. These signals are
   ///              unsubscribed when `store.unsubscribe(_:)` is called.
-  public func subscribe(_ subscriber: AnyObject, connectTo signals: [StateSignalType]) {
-    self.subscribe(subscriber, didChange: { (_) in })
+  public func subscribe(
+    _ subscriber: AnyObject,
+    didChange didChangeHandler: @escaping DidChangeHandler = { (_) in },
+    connectTo signals: [StateSignalType]
+  ) {
+    self.subscribe(subscriber, didChange: didChangeHandler)
 
     let subscriberId: StoreSubscriberId = self.getSubscriberId(of: subscriber)
     StateSignalManager.shared.register(signals: signals, of: subscriberId)
