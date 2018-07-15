@@ -24,7 +24,7 @@ final class StoreSpec: QuickSpec {
       context("when subscribing from a class with a handler,") {
         beforeEach { store.subscribe(self, didChange: { (_) in handlerCallCount += 1 }) }
 
-        it("should call the handler at once after subscribing") {
+        it("should call the handler only once after subscribing") {
           expect(handlerCallCount).to(equal(1))
         }
       }
@@ -36,7 +36,7 @@ final class StoreSpec: QuickSpec {
             store.dispatch(action: IncrementUserAgeAction())
           }
 
-          it("should call the handler at once") {
+          it("should call the handler only once") {
             expect(handlerCallCount).to(equal(2))
           }
         }

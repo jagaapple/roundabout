@@ -166,8 +166,8 @@
 		902DDE8820D6624D00C8CE87 /* RoundaboutSpec */ = {
 			isa = PBXGroup;
 			children = (
-				90636FDF20F647F200D9A010 /* SampleClasses */,
 				902DDE7C20D6624D00C8CE87 /* Products */,
+				90636FDF20F647F200D9A010 /* SampleClasses */,
 				90636FDC20F6455F00D9A010 /* CoreTypes */,
 				90636FEB20F9C63B00D9A010 /* Signals */,
 				902DDE8B20D6624D00C8CE87 /* Info.plist */,

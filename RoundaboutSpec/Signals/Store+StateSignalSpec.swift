@@ -28,27 +28,33 @@ final class StoreExtensionStateSignalSpec: QuickSpec {
 
 
     // -------------------------------------------------------------------------------------------------------------------------
-    // MARK: - SUBSCRIBE WITH STATE SIGNALS
+    // MARK: - Subscribe with State Signals
     // -------------------------------------------------------------------------------------------------------------------------
     describe("SUBSCRIBE WITH STATE SIGNALS ::") {
       var userNameSignal: StateSignal<String?, ApplicationState>!
+      var userNameSignalHandlerCallCount: Int = 0
       var userAgeSignal: StateSignal<Int, ApplicationState>!
+      var userAgeSignalHandlerCallCount: Int = 0
       beforeEach {
         userNameSignal = store.createSignal { $0.user.name }
+        userNameSignalHandlerCallCount = 0
         userAgeSignal = store.createSignal { $0.user.age }
+        userAgeSignalHandlerCallCount = 0
 
         store.subscribe(self, connectTo: [userNameSignal, userAgeSignal])
       }
       afterEach { store.unsubscribe(self) }
 
+      context("when subscribing a Store,") {
+        it("should not call State Signal's handlers") {
+          expect(userAgeSignalHandlerCallCount).to(equal(0))
+        }
+      }
+
       context("when subscribing a Store and State Signals,") {
-        var userNameSignalHandlerCallCount: Int = 0
-        var userAgeSignalHandlerCallCount: Int = 0
         var userName: String?
         var userAge: Int = 0
         beforeEach {
-          userNameSignalHandlerCallCount = 0
-          userAgeSignalHandlerCallCount = 0
           userName = nil
           userAge = 0
 
@@ -66,7 +72,7 @@ final class StoreExtensionStateSignalSpec: QuickSpec {
           let expectedUserName: String = "dummy"
           let expectedUserAge: Int = 10
           beforeEach {
-            let action = UpdateUserFieldAction(name: expectedUserName, age: expectedUserAge)
+            let action: UpdateUserFieldAction = UpdateUserFieldAction(name: expectedUserName, age: expectedUserAge)
             store.dispatch(action: action)
           }
 
@@ -99,13 +105,8 @@ final class StoreExtensionStateSignalSpec: QuickSpec {
         }
       }
 
-      context("when unsubscribing a Store with subscribing some State Signals,") {
-        var userNameSignalHandlerCallCount: Int = 0
-        var userAgeSignalHandlerCallCount: Int = 0
+      context("when unsubscribing a Store subscribed with some State Signals,") {
         beforeEach {
-          userNameSignalHandlerCallCount = 0
-          userAgeSignalHandlerCallCount = 0
-
           userNameSignal.subscribe(self, didChange: { (_) in userNameSignalHandlerCallCount += 1 })
           userAgeSignal.subscribe(self, didChange: { (_) in userAgeSignalHandlerCallCount += 1 })
           store.unsubscribe(self)
@@ -119,6 +120,103 @@ final class StoreExtensionStateSignalSpec: QuickSpec {
 
           it("should not call State Signal's handlers") {
             expect(userNameSignalHandlerCallCount).to(equal(1))
+            expect(userAgeSignalHandlerCallCount).to(equal(1))
+          }
+        }
+      }
+    }
+
+
+    // -------------------------------------------------------------------------------------------------------------------------
+    // MARK: - Subscribe with DidChangeHandler and State Signals
+    // -------------------------------------------------------------------------------------------------------------------------
+    describe("SUBSCRIBE WITH DID CHANGE HANDLER AND STATE SIGNALS ::") {
+      var storeHandlerCallCount: Int = 0
+      var userAgeSignal: StateSignal<Int, ApplicationState>!
+      var userAgeSignalHandlerCallCount: Int = 0
+      beforeEach {
+        storeHandlerCallCount = 0
+        userAgeSignal = store.createSignal { $0.user.age }
+        userAgeSignalHandlerCallCount = 0
+
+        store.subscribe(self, didChange: { (_) in storeHandlerCallCount += 1 }, connectTo: [userAgeSignal])
+      }
+      afterEach { store.unsubscribe(self) }
+
+      context("when subscribing a Store,") {
+        it("should call Store's handlers only once after subscribing") {
+          expect(storeHandlerCallCount).to(equal(1))
+        }
+
+        it("should not call State Signal's handlers") {
+          expect(userAgeSignalHandlerCallCount).to(equal(0))
+        }
+      }
+
+      context("when subscribing a Store and State Signals,") {
+        beforeEach {
+          userAgeSignal.subscribe(self, didChange: { (_) in userAgeSignalHandlerCallCount += 1 })
+        }
+
+        it("should call Store's handlers only once after subscribing") {
+          expect(storeHandlerCallCount).to(equal(1))
+        }
+
+        it("should call State Signal's handlers only once after subscribing") {
+          expect(userAgeSignalHandlerCallCount).to(equal(1))
+        }
+
+        context("dispatching some Actions,") {
+          let expectedUserAge: Int = 10
+          beforeEach {
+            let action: UpdateUserFieldAction = UpdateUserFieldAction(name: "dummy", age: expectedUserAge)
+            store.dispatch(action: action)
+          }
+
+          it("should call Store's handlers") {
+            expect(storeHandlerCallCount).to(equal(2))
+          }
+
+          it("should call Signal's handlers") {
+            expect(userAgeSignalHandlerCallCount).to(equal(2))
+          }
+        }
+
+        context("dispatching some Actions twice or more,") {
+          let expectedUserAge: Int = 10
+          beforeEach {
+            let action: UpdateUserFieldAction = UpdateUserFieldAction(name: "dummy", age: expectedUserAge)
+            store.dispatch(action: action)
+            store.dispatch(action: action)
+          }
+
+          it("should call Store's handlers twice or more") {
+            expect(storeHandlerCallCount).to(equal(3))
+          }
+
+          it("should call Signal's handlers only once (excluding counts when suscribing State Signals)") {
+            expect(userAgeSignalHandlerCallCount).to(equal(2))
+          }
+        }
+      }
+
+      context("when unsubscribing a Store subscribed with some State Signals,") {
+        beforeEach {
+          userAgeSignal.subscribe(self, didChange: { (_) in userAgeSignalHandlerCallCount += 1 })
+          store.unsubscribe(self)
+        }
+
+        context("dispatching some Actions after the unsubscribing,") {
+          beforeEach {
+            let action: UpdateUserFieldAction = UpdateUserFieldAction(name: "dummy", age: 10)
+            store.dispatch(action: action)
+          }
+
+          it("should not call Store's handlers") {
+            expect(storeHandlerCallCount).to(equal(1))
+          }
+
+          it("should not call State Signal's handlers") {
             expect(userAgeSignalHandlerCallCount).to(equal(1))
           }
         }

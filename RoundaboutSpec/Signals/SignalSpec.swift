@@ -28,7 +28,7 @@ final class SignalSpec: QuickSpec {
       context("when subscribing from a class with a handler,") {
         beforeEach { signal.subscribe(self, didChange: { (_) in handlerCallCount += 1 }) }
 
-        it("should call the handler at once after subscribing") {
+        it("should call the handler only once after subscribing") {
           expect(handlerCallCount).to(equal(1))
         }
       }
@@ -41,7 +41,7 @@ final class SignalSpec: QuickSpec {
               signal.rawValue = 1
             }
 
-            it("should call the handler at once") {
+            it("should call the handler only once") {
               expect(handlerCallCount).to(equal(2))
             }
           }
@@ -52,7 +52,7 @@ final class SignalSpec: QuickSpec {
               optionalSignal.rawValue = nil
             }
 
-            it("should call the handler at once") {
+            it("should call the handler only once") {
               expect(handlerCallCount).to(equal(2))
             }
           }
@@ -73,7 +73,7 @@ final class SignalSpec: QuickSpec {
               signal.rawValue = signal.rawValue
             }
 
-            it("should call the handler at once") {
+            it("should call the handler only once") {
               expect(handlerCallCount).to(equal(1))
             }
           }
@@ -84,7 +84,7 @@ final class SignalSpec: QuickSpec {
               optionalSignal.rawValue = optionalSignal.rawValue
             }
 
-            it("should call the handler at once") {
+            it("should call the handler only once") {
               expect(handlerCallCount).to(equal(1))
             }
           }
