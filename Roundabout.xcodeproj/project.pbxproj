@@ -124,8 +124,8 @@
 				900D355E20EA89E100DB0DE3 /* Signal.swift */,
 				90636FF020F9E1DC00D9A010 /* StateSignalType.swift */,
 				90C2A86720F4BF3C00545298 /* StateSignal.swift */,
-				90636FF220F9E1F900D9A010 /* Store+StateSignal.swift */,
 				90636FF420FA082C00D9A010 /* StateSigalManager.swift */,
+				90636FF220F9E1F900D9A010 /* Store+StateSignal.swift */,
 			);
 			path = Signals;
 			sourceTree = "<group>";
