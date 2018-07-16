@@ -32,21 +32,12 @@ extension Store {
   }
 
   /// Subscribes in order to detect dispatchings and value changed using StateSignals. To avoid memory leaks, unsubscribe when
-  /// detection become unnecessary, but you don't need to unsubscribe set StateSignals directly.
-  ///
-  /// ```swift
-  /// store.subscribe(self, connectTo: [userNameSignal, userAgeSignal]) // Two signals are set.
-  /// userNameSignal.subscribe(self, didChange: { (_) in ... }) // You can subscribe the signals.
-  /// ...
-  /// store.unsubscribe(self) // The two signals are unsubscribed automatically.
-  /// userNameSignal.unsubscribe(self) // This is not needed.
-  /// ```
+  /// detection become unnecessary.
   ///
   /// - Parameters:
   ///   - subscriber: Class or object in order to distinguish who has signals.
   ///   - didChangeHandler: This closure is called every time after an Action is dispatched (optional).
-  ///   - signals: Target StateSignals in order to set values from Application State automatically. These signals are
-  ///              unsubscribed when `store.unsubscribe(_:)` is called.
+  ///   - signals: Target StateSignals in order to set values from Application State automatically.
   public func subscribe(
     _ subscriber: AnyObject,
     didChange didChangeHandler: @escaping DidChangeHandler = { (_) in },
