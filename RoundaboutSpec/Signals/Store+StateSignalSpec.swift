@@ -46,7 +46,8 @@ final class StoreExtensionStateSignalSpec: QuickSpec {
       afterEach { store.unsubscribe(self) }
 
       context("when subscribing a Store,") {
-        it("should not call State Signal's handlers") {
+        it("should call State Signal's handlers") {
+          expect(userNameSignalHandlerCallCount).to(equal(0))
           expect(userAgeSignalHandlerCallCount).to(equal(0))
         }
       }
@@ -66,6 +67,11 @@ final class StoreExtensionStateSignalSpec: QuickSpec {
             userAgeSignalHandlerCallCount += 1
             userAge = age
           })
+        }
+
+        it("should call State Signal's handlers only once after subscribing the State Signals") {
+          expect(userNameSignalHandlerCallCount).to(equal(1))
+          expect(userAgeSignalHandlerCallCount).to(equal(1))
         }
 
         context("dispatching some Actions,") {
@@ -158,11 +164,11 @@ final class StoreExtensionStateSignalSpec: QuickSpec {
           userAgeSignal.subscribe(self, didChange: { (_) in userAgeSignalHandlerCallCount += 1 })
         }
 
-        it("should call Store's handlers only once after subscribing") {
+        it("should call Store's handlers only once after subscribing the Store") {
           expect(storeHandlerCallCount).to(equal(1))
         }
 
-        it("should call State Signal's handlers only once after subscribing") {
+        it("should call State Signal's handlers only once after subscribing the State Signals") {
           expect(userAgeSignalHandlerCallCount).to(equal(1))
         }
 

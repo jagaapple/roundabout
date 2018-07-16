@@ -48,6 +48,9 @@ extension Store {
     let subscriberId: StoreSubscriberId = self.getSubscriberId(of: subscriber)
     StateSignalManager.shared.register(signals: signals, of: subscriberId)
 
+    // Input all right now.
+    StateSignalManager.shared.inputAll(state: self.applicationState)
+
     // Set a handler.
     self.setDidDispatchHandler(id: Store.handlerId, handler: { (newState: ApplicationStateType, _, _) in
       StateSignalManager.shared.inputAll(state: newState)
