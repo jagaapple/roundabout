@@ -17,6 +17,9 @@ final class BooksDetailTableViewController: UITableViewController {
 
   // MARK: Private Variables
   private var book: BookModel!
+  private lazy var bookTitleSignal = ApplicationStore.shared.createSignal { $0.book.books[self.book.id]?.title ?? "" }
+  private lazy var bookDescriptionSignal = ApplicationStore.shared.createSignal { $0.book.books[self.book.id]?.description }
+  private lazy var bookScoreSignal = ApplicationStore.shared.createSignal { $0.book.books[self.book.id]?.score ?? 0 }
 
 
   // ---------------------------------------------------------------------------------------------------------------------------
@@ -36,7 +39,7 @@ final class BooksDetailTableViewController: UITableViewController {
     super.viewWillAppear(animated)
 
     // Subscribe a store.
-    ApplicationStore.shared.subscribe(self, didChange: self.bindToAppearance)
+    ApplicationStore.shared.subscribe(self, connectTo: [self.bookTitleSignal, self.bookDescriptionSignal, self.bookScoreSignal])
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -64,7 +67,7 @@ final class BooksDetailTableViewController: UITableViewController {
         for: indexPath
       ) as? BooksDetailSummaryTableViewCell else { return UITableViewCell() }
       
-      cell.prepare(book: self.book)
+      cell.prepare(titleSignal: self.bookTitleSignal, descriptionSignal: self.bookDescriptionSignal)
 
       return cell
     case .score:
@@ -73,7 +76,7 @@ final class BooksDetailTableViewController: UITableViewController {
         for: indexPath
       ) as? BooksDetailScoreTableViewCell else { return UITableViewCell() }
 
-      cell.prepare(book: self.book)
+      cell.prepare(bookId: self.book.id, scoreSignal: self.bookScoreSignal)
 
       return cell
     case .edit:
@@ -100,16 +103,6 @@ final class BooksDetailTableViewController: UITableViewController {
   // ---------------------------------------------------------------------------------------------------------------------------
   func prepare(book: BookModel) {
     self.book = book
-  }
-
-  // MARK: Private Functions
-  // ---------------------------------------------------------------------------------------------------------------------------
-  private func bindToAppearance(_ state: ApplicationState) {
-    self.book = state.book.books[self.book.id]
-
-    // This may affect performance because re-render a table view every time after an Action is dispatched.
-    // You should implement an efficient re-rendering algorithm.
-    self.tableView.reloadData()
   }
 
 }

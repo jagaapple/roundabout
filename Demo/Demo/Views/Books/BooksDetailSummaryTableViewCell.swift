@@ -2,6 +2,7 @@
 // DEMO - VIEWS - BOOKS - BOOKS DETAIL SUMMARY TABLE VIEW CELL
 // =============================================================================================================================
 import UIKit
+import Roundabout
 
 final class BooksDetailSummaryTableViewCell: UITableViewCell {
 
@@ -11,6 +12,16 @@ final class BooksDetailSummaryTableViewCell: UITableViewCell {
   // MARK: Internal Variables
   static var identifier: String { return "summary" }
 
+  // MARK: Private Variables
+  private var titleSignal: StateSignal<String, ApplicationState>? {
+    willSet { self.titleSignal?.unsubscribe(self) }
+    didSet { self.titleSignal?.subscribe(self, didChange: self.bindTitleToAppearance) }
+  }
+  private var descriptionSignal: StateSignal<String?, ApplicationState>? {
+    willSet { self.descriptionSignal?.unsubscribe(self) }
+    didSet { self.descriptionSignal?.subscribe(self, didChange: self.bindDescriptionToAppearance) }
+  }
+
   // MARK: IBOutlet Variables
   @IBOutlet weak private var titleLabel: UILabel!
   @IBOutlet weak private var descriptionLabel: UILabel!
@@ -19,17 +30,28 @@ final class BooksDetailSummaryTableViewCell: UITableViewCell {
   // ---------------------------------------------------------------------------------------------------------------------------
   // MARK: - Functions
   // ---------------------------------------------------------------------------------------------------------------------------
+  // MARK: Initializers
+  // ---------------------------------------------------------------------------------------------------------------------------
+  deinit {
+    self.titleSignal = nil
+    self.descriptionSignal = nil
+  }
+
   // MARK: Internal Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  func prepare(book: BookModel) {
-    self.bindToAppearance(book: book)
+  func prepare(titleSignal: StateSignal<String, ApplicationState>, descriptionSignal: StateSignal<String?, ApplicationState>) {
+    self.titleSignal = titleSignal
+    self.descriptionSignal = descriptionSignal
   }
 
   // MARK: Private Functions
   // ---------------------------------------------------------------------------------------------------------------------------
-  func bindToAppearance(book: BookModel) {
-    self.titleLabel.text = book.title
-    self.descriptionLabel.text = book.description
+  private func bindTitleToAppearance(_ title: String) {
+    self.titleLabel.text = title
+  }
+
+  private func bindDescriptionToAppearance(_ description: String?) {
+    self.descriptionLabel.text = description
   }
 
 }
